@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Remedial UTS-UAS Gasal 2024/2025 - Matematika Diskrit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js Core CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/white.css" id="theme">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Open+Sans:400,700" rel="stylesheet">
+
+  <!-- Reveal.js -->
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide Info Ujian -->
+      <section>
+        <h2>Remedial UTS-UAS Gasal 2024/2025</h2>
+        <p><strong>Mata Kuliah:</strong> Matematika Diskrit</p>
+        <p><strong>Hari, Tanggal:</strong> Kamis, 19-12-2024</p>
+        <p><strong>Waktu:</strong> 2 Hari</p>
+        <p><strong>Kredit:</strong> 3 SKS</p>
+        <p><strong>Nama Dosen:</strong> Aidil Saputra Kirsan, S.ST., M.Tr.Kom</p>
+        <p><strong>Note:</strong> Open Book</p>
+        <br>
+        <p><em>Bacalah soal dengan seksama sebelum mengerjakan.</em></p>
+      </section>
+
+      <!-- Soal 1 -->
+      <section>
+        <div class="soal">
+          <h3>1.</h3>
+          <p><strong>Diketahui</strong></p>
+          <div class="matrix-container">
+          \[
+          A = \begin{pmatrix}
+          3 & 5 & 6 \\
+          3 & 3 & 1 \\
+          4 & 1 & 3 
+          \end{pmatrix}, \quad
+          B = \begin{pmatrix}
+          4 & 4 & 6 \\
+          3 & 3 & 1 \\
+          3 & 4 & 2
+          \end{pmatrix}, \quad
+          C = \begin{pmatrix}
+          2 & 2 & 1 \\
+          3 & 5 & 6 \\
+          1 & 5 & 2
+          \end{pmatrix}
+          \]
+          </div>
+          <p><strong>Hitunglah:</strong></p>
+          <ol>
+            <li>\( C + B - A^T \)</li>
+            <li>\( A \times C \)</li>
+            <li>\( B(2C + A^T) \)</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Solusi Soal 1 -->
+      <section>
+        <div class="soal">
+          <h2>Solusi/Petunjuk Soal 1</h2>
+          <ul>
+            <li><strong>(a)</strong> Hitung \( A^T \) terlebih dahulu. Kemudian lakukan operasi \( C + B - A^T \).</li>
+            <li><strong>(b)</strong> Setelah C diketahui, lakukan perkalian matriks \( A \times C \). Pastikan dimensi matriks cocok.</li>
+            <li><strong>(c)</strong> Substitusikan C dan \( A^T \) ke dalam \( B(2C + A^T) \) dan lakukan operasi penjumlahan serta perkalian matriks secara bertahap.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Soal 2 -->
+      <section>
+        <div class="soal">
+          <h3>2.</h3>
+          <p>Misalkan \( P = \{2,3,4\} \) dan \( Q = \{2,4,8,9,15\} \). Jika kita definisikan relasi \( R \) dari \( P \) ke \( Q \) dengan \((p,q) \in R\) jika <strong>p habis membagi q</strong>.</p>
+          <ol>
+            <li>Tentukan himpunan relasinya.</li>
+            <li>Buatlah diagram panahnya.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Solusi Soal 2 -->
+      <section>
+        <div class="soal">
+          <h2>Solusi/Petunjuk Soal 2</h2>
+          <ul>
+            <li>Periksa setiap pasangan (p,q) dengan p ∈ P dan q ∈ Q. Jika q mod p = 0 maka (p,q) termasuk R.</li>
+            <li>Himpunan relasinya adalah semua pasangan tersebut.</li>
+            <li>Diagram panah: letakkan P di kiri dan Q di kanan, tarik panah dari p ke q jika p membagi q.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Soal 3 -->
+      <section>
+        <div class="soal">
+          <h3>3.</h3>
+          <p>Buatlah Diagram panah yang menunjukan:</p>
+          <ol type="a">
+            <li>Fungsi satu ke satu bukan Surjektif (Onto)</li>
+            <li>Fungsi Surjektif (Onto) bukan satu ke satu</li>
+            <li>Bukan fungsi satu ke satu maupun Surjektif (Onto)</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Solusi Soal 3 -->
+      <section>
+        <div class="soal">
+          <h2>Solusi/Petunjuk Soal 3</h2>
+          <ul>
+            <li>Satu ke satu (injectif): Setiap elemen domain punya bayangan unik dan berbeda.</li>
+            <li>Surjektif (onto): Setiap elemen kodomain memiliki pra-citra di domain.</li>
+            <li>Buat diagram domain dan kodomain, lalu tarik panah sesuai sifat yang diminta.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Soal 4 -->
+      <section>
+        <div class="soal">
+          <h3>4.</h3>
+          <p>Diberikan Fungsi \( w(t) = t - 1 \) dan \( q(t) = t^2 - 1 \).</p>
+          <ol type="a">
+            <li>Tentukan fungsi komposisi \( w \circ q \)</li>
+            <li>Tentukan fungsi komposisi \( q \circ w \)</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Solusi Soal 4 -->
+      <section>
+        <div class="soal">
+          <h2>Solusi/Petunjuk Soal 4</h2>
+          <ul>
+            <li><strong>Untuk \( w \circ q \):</strong> \( w(q(t)) = q(t)-1 = (t^2-1)-1 = t^2 - 2 \).</li>
+            <li><strong>Untuk \( q \circ w \):</strong> \( q(w(t)) = (w(t))^2 - 1 = (t-1)^2 - 1 = t^2 - 2t \).</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Soal 5 -->
+      <section>
+        <div class="soal">
+          <h3>5.</h3>
+          <p>Mahasiswa diminta mengerjakan 9 dari 10 soal ulangan, tetapi soal <strong>1 - 5 harus</strong> dikerjakan. Banyaknya pilihan yang dapat diambil mahasiswa adalah........</p>
+        </div>
+      </section>
+
+      <!-- Solusi Soal 5 -->
+      <section>
+        <div class="soal">
+          <h2>Solusi/Petunjuk Soal 5</h2>
+          <ul>
+            <li>Soal 1-5 wajib, sudah terpilih 5 soal.</li>
+            <li>Dari soal no. 6-10 (5 soal), pilih 4 lagi: \(\binom{5}{4}=5\) cara.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Soal 6 -->
+      <section>
+        <div class="soal">
+          <h3>6.</h3>
+          <p>Terdapat tiga sahabat (Tumini, Tukijo, Tukiem) duduk di bangku. Berapa urutan yang dapat terjadi?</p>
+        </div>
+      </section>
+
+      <!-- Solusi Soal 6 -->
+      <section>
+        <div class="soal">
+          <h2>Solusi/Petunjuk Soal 6</h2>
+          <ul>
+            <li>3 orang: 3! = 6 urutan.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Soal 7 -->
+      <section>
+        <div class="soal">
+          <h3>7.</h3>
+          <p>6 orang siswa untuk perlombaan tenis meja ganda. Berapa banyak cara penyusunan pasangan pemain?</p>
+        </div>
+      </section>
+
+      <!-- Solusi Soal 7 -->
+      <section>
+        <div class="soal">
+          <h2>Solusi/Petunjuk Soal 7</h2>
+          <ul>
+            <li>Jumlah cara: \(\frac{\binom{6}{2}\binom{4}{2}\binom{2}{2}}{3!}=15\) cara.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Soal 8 -->
+      <section>
+        <div class="soal">
+          <h3>8.</h3>
+          <p><strong>Perhatikan Graf X dibawah:</strong></p>
+          <img src="8.jpg" alt="Graf X">
+          <ol type="a">
+            <li>Tentukan Lintasan Euler (Jika Ada)</li>
+            <li>Tentukan Lintasan Hamilton (Jika Ada)</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Solusi Soal 8 -->
+      <section>
+        <div class="soal">
+          <h2>Solusi/Petunjuk Soal 8</h2>
+          <ul>
+            <li>Lintasan Euler: Periksa derajat simpul. Semua simpul berderajat genap = Eulerian Circuit; dua simpul berderajat ganjil = Eulerian Path.</li>
+            <li>Lintasan Hamilton: Periksa apakah ada lintasan yang melewati setiap simpul tepat satu kali.</li>
+          </ul>
+        </div>
+      </section>
+
+            <!-- Soal 9 -->
+            <section>
+                <div class="soal">
+                  <h3>9.</h3>
+                  <p>Tentukan Sirkuit Euler (Jika ada) dari Graf berikut!</p>
+                  <img src="9.jpg" alt="Graf 9">
+                </div>
+              </section>
+        
+              <!-- Solusi Soal 9 -->
+              <section>
+                <div class="soal">
+                  <h2>Solusi/Petunjuk Soal 9</h2>
+                  <ul>
+                    <li>Periksa derajat setiap simpul dalam graf.</li>
+                    <li>Sirkuit Euler ada jika semua simpul memiliki derajat genap.</li>
+                    <li>Jika syarat terpenuhi, tuliskan lintasan yang melalui semua sisi persis satu kali dan kembali ke titik awal.</li>
+                  </ul>
+                </div>
+              </section>
+        
+              <!-- Soal 10 -->
+              <section>
+                <div class="soal">
+                  <h3>10.</h3>
+                  <p>Gambarlah Graf tak berarah yang terdiri dari 5 buah simpul dengan derajat masing-masing simpul:</p>
+                  <ol type="a">
+                    <li>3, 2, 1, 2, 1</li>
+                    <li>4, 3, 4, 3, 2</li>
+                  </ol>
+                </div>
+              </section>
+        
+              <!-- Solusi Soal 10 -->
+              <section>
+                <div class="soal">
+                  <h2>Solusi/Petunjuk Soal 10</h2>
+                  <ul>
+                    <li>Gunakan aturan Handshaking Lemma (jumlah derajat semua simpul = 2 × jumlah sisi) untuk memeriksa apakah derajat tersebut membentuk graf yang valid.</li>
+                    <li>Kemudian, susun simpul-simpul dan hubungkan dengan sisi sesuai derajat yang diinginkan.</li>
+                    <li>Pastikan tidak ada konflik, seperti derajat yang tidak dapat diwujudkan dengan jumlah sisi yang ada.</li>
+                  </ul>
+                </div>
+              </section>
+        
+              <!-- Soal 11 -->
+              <section>
+                <div class="soal">
+                  <h3>11.</h3>
+                  <p>Gunakan Algoritma Welch-Powell pada Graf W di bawah ini:</p>
+                  <img src="11.jpg" alt="Graf 11">
+                  <ol type="a">
+                    <li>Warnailah graf W di atas!</li>
+                    <li>Tentukan Jumlah derajat pada masing-masing simpul!</li>
+                    <li>Tentukan Bilangan Kromatiknya!</li>
+                  </ol>
+                </div>
+              </section>
+        
+              <!-- Solusi Soal 11 -->
+              <section>
+                <div class="soal">
+                  <h2>Solusi/Petunjuk Soal 11</h2>
+                  <ul>
+                    <li><strong>Warna Graf (Welch-Powell):</strong> Urutkan simpul berdasarkan derajat tertinggi ke terendah, lalu warnai secara berurutan dengan aturan graf tidak boleh memiliki dua simpul bertetangga dengan warna sama.</li>
+                    <li><strong>Derajat Simpul:</strong> Hitung jumlah sisi yang terhubung ke setiap simpul untuk mendapatkan derajatnya.</li>
+                    <li><strong>Bilangan Kromatik:</strong> Adalah jumlah warna minimum yang dibutuhkan untuk mewarnai graf tanpa ada dua simpul bertetangga yang memiliki warna sama.</li>
+                  </ul>
+                </div>
+              </section>
+        
+              <!-- Soal 12 -->
+              <section>
+                <div class="soal">
+                  <h3>12.</h3>
+                  <p>Buatlah pohon ekspresi dari \((q - w) * ((e/r) * (t + y))\)</p>
+                </div>
+              </section>
+        
+              <!-- Solusi Soal 12 -->
+              <section>
+                <div class="soal">
+                  <h2>Solusi/Petunjuk Soal 12</h2>
+                  <ul>
+                    <li>Ekspresi: \((q - w) * ((e/r) * (t + y))\)</li>
+                    <li>Bentuk pohon ekspresi dengan \(*\) sebagai root utama.</li>
+                    <li>Cabang kiri: ekspresi \((q-w)\), dengan \(-\) sebagai akar dan q, w sebagai daun.</li>
+                    <li>Cabang kanan: \((e/r) * (t+y)\), \(*\) sebagai akar cabang, dengan \((e/r)\) (/\) dan \((t+y)\) (+) sebagai subtree.</li>
+                  </ul>
+                </div>
+              </section>
+        
+              <!-- Soal 13 -->
+              <section>
+                <div class="soal">
+                  <h3>13.</h3>
+                  <p>Sebuah keluarga memiliki KK dengan seorang ayah, seorang ibu, dan empat orang anak (Joko, Juminten, Juki, Jaka, Jeki, Juke) dengan selisih umur tertentu. Tentukan kemungkinan urutan anak tertua hingga termuda menggunakan pohon keputusan (decision tree)!</p>
+                </div>
+              </section>
+        
+              <!-- Solusi Soal 13 -->
+              <section>
+                <div class="soal">
+                  <h2>Solusi/Petunjuk Soal 13</h2>
+                  <ul>
+                    <li>Identifikasi kriteria pengurutan (misalnya berdasarkan tahun lahir, selisih umur).</li>
+                    <li>Buat decision tree yang memecah pilihan berdasarkan umur terbesar, lalu bandingkan dengan yang lain secara berjenjang hingga didapat urutan lengkap dari tertua sampai termuda.</li>
+                    <li>Setiap node keputusan membandingkan dua anak berdasarkan umur, teruskan hingga semua anak terurut.</li>
+                  </ul>
+                </div>
+              </section>
+        
+              <!-- Soal 14 -->
+              <section>
+                <div class="soal">
+                  <h3>14.</h3>
+                  <ol type="a">
+                    <li>Tentukanlah Kode Huffman dari "MATEMATIKADISKIRIT"!</li>
+                    <li>Berapa persen Bits yang dapat direduksi dengan kode Huffman!</li>
+                  </ol>
+                </div>
+              </section>
+        
+              <!-- Solusi Soal 14 -->
+              <section>
+                <div class="soal">
+                  <h2>Solusi/Petunjuk Soal 14</h2>
+                  <ul>
+                    <li><strong>Kode Huffman:</strong> Hitung frekuensi tiap karakter dalam "MATEMATIKADISKIRIT", bangun pohon Huffman dari karakter dengan frekuensi terendah digabung secara berpasangan hingga satu pohon.</li>
+                    <li>Assign bit (0/1) pada tiap cabang pohon. Karakter di daun memiliki kode Huffman sesuai lintasannya.</li>
+                    <li><strong>Reduksi bit:</strong> Bandingkan panjang rata-rata kode Huffman dengan panjang kode tetap (misalnya ASCII 8 bit/char). Persentase reduksi = \(\frac{(bit\_awal - bit\_Huffman)}{bit\_awal} \times 100\%\).</li>
+                  </ul>
+                </div>
+              </section>
+        
+
+
+    </div>
+  </div>
+
+  <script>
+    Reveal.initialize({
+      hash: true,
+      transition: 'fade',
+      plugins: [ RevealMath ],
+      math: {
+        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        tex: {
+          inlineMath: [['\\(','\\)']],
+          displayMath: [['\\[','\\]']]
+        }
+      },
+      minScale: 1,
+      maxScale: 1,
+      center: true
+    });
+  </script>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
