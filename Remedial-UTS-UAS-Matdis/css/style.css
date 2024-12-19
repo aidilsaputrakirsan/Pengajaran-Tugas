@@ -1,0 +1,68 @@
+body {
+    font-family: 'Roboto', 'Open Sans', sans-serif;
+    background: #f0f0f0; 
+    color: #333;
+    margin:0; padding:0;
+  }
+  
+  .reveal {
+    background: #f0f0f0;
+  }
+  
+  .reveal .slides {
+    overflow: auto !important;
+  }
+  
+  .soal {
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    max-width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4em;
+  }
+  
+  .soal h3 {
+    color: #003366;
+    margin-top: 0;
+    text-align: center;
+  }
+  
+  .soal h2 {
+    color: #003366;
+    text-align: center;
+  }
+  
+  .soal p, .soal li {
+    font-size: 1.2em;
+  }
+  
+  strong {
+    color: #003366;
+  }
+  
+  img {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: block;
+    margin: 20px auto;
+    max-width:100%;
+    height:auto;
+  }
+  
+  .matrix-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 600px) {
+    .soal p, .soal li {
+      font-size: 1em;
+    }
+  }
+  
