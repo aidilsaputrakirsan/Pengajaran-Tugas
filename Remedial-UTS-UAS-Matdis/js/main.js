@@ -7,3 +7,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
+
+  Reveal.initialize({
+    hash: true,
+    transition: 'fade',
+    plugins: [ RevealMath.MathJax3({
+      mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+      tex: {
+        inlineMath: [['\\(','\\)']],
+        displayMath: [['\\[','\\]']]
+      }
+    }) ],
+    minScale: 1,
+    maxScale: 1,
+    center: true
+  });
+  
+  <script src="https://unpkg.com/reveal.js/plugin/math/math.js"></script>
