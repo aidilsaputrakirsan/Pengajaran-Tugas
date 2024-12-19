@@ -201,6 +201,43 @@
             transform: scale(1.1);
         }
 
+        /* Add styles for vertical navigation hints */
+        .vertical-nav-hint {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 1000;
+            display: none;
+        }
+
+        /* Make sure content is scrollable within slides */
+        .reveal .slides section {
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        /* Style scrollbar */
+        .reveal .slides section::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .reveal .slides section::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+
+        .reveal .slides section::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 4px;
+        }
+
         /* Animations */
         @keyframes slideIn {
             from {
@@ -268,7 +305,9 @@
 </head>
 <body>
     <!-- Theme Toggle Button -->
-  
+    <div class="vertical-nav-hint">
+      Geser ↑↓ untuk navigasi vertikal
+  </div>
 
     <div class="reveal">
         <div class="slides">
@@ -647,80 +686,92 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <script>
-      document.addEventListener('DOMContentLoaded', function() {
-          // Initialize Reveal.js
-          let deck = new Reveal({
-              width: '100%',
-              height: '100%',
-              margin: 0.04,
-              minScale: 0.2,
-              maxScale: 2.0,
-              hash: true,
-              touch: true,
-              center: true,
-              progress: true,
-              controls: true,
-              transition: 'slide',
-              backgroundTransition: 'fade',
-              plugins: [RevealMath.MathJax3, RevealZoom],
+       document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Reveal.js with vertical slides enabled
+            let deck = new Reveal({
+                width: '100%',
+                height: '100%',
+                margin: 0.04,
+                minScale: 0.2,
+                maxScale: 2.0,
+                
+                // Enable vertical slides
+                nested: true,
+                
+                // Enable both touch and keyboard navigation
+                keyboard: true,
+                touch: true,
+                
+                // Configure touch sensitivity
+                touchVerticalSwipe: true,
+                touchHorizontalSwipe: true,
+                hideInactiveCursor: true,
+                hideCursorTime: 3000,
+
+                // Other settings
+                hash: true,
+                center: true,
+                progress: true,
+                controls: true,
+                controlsTutorial: true,
+                
+                // Plugins
+                plugins: [RevealMath.MathJax3, RevealZoom]
+            });
+
+            deck.initialize();
+
+            // Enhanced touch navigation
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let touchEndY = 0;
+
+            document.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+
+            document.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                const diffX = touchEndX - touchStartX;
+                const diffY = touchEndY - touchStartY;
+                const ratioX = Math.abs(diffX / diffY);
+                const ratioY = Math.abs(diffY / diffX);
+                const swipeThreshold = 50;
+
+                // Vertical swipe detection
+                if (Math.abs(diffY) > swipeThreshold && ratioY > 2) {
+                    if (diffY > 0) {
+                        deck.up(); // Swipe down to go up
+                    } else {
+                        deck.down(); // Swipe up to go down
+                    }
+                }
+                // Horizontal swipe detection
+                else if (Math.abs(diffX) > swipeThreshold && ratioX > 2) {
+                    if (diffX > 0) {
+                        deck.left(); // Swipe right to go left
+                    } else {
+                        deck.right(); // Swipe left to go right
+                    }
+                }
+            }
+
+            // Show navigation hint on start
+            const navHint = document.querySelector('.vertical-nav-hint');
+            navHint.style.display = 'block';
+            setTimeout(() => {
+                navHint.style.display = 'none';
+            }, 3000);
+        });
               
-              // Math Configuration
-              math: {
-                  mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
-                  config: 'TeX-AMS_HTML-full',
-                  tex: {
-                      inlineMath: [['\\(', '\\)']],
-                      displayMath: [['\\[', '\\]']],
-                      packages: ['base', 'ams', 'noerrors', 'noundefined']
-                  }
-              }
-          });
-
-          deck.initialize();
-
-          // Theme Toggle
-          const themeToggle = document.getElementById('themeToggle');
-          const icon = themeToggle.querySelector('i');
-          let isDark = true;
-
-          themeToggle.addEventListener('click', () => {
-              isDark = !isDark;
-              document.body.dataset.theme = isDark ? 'dark' : 'light';
-              icon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
-          });
-
-          // Enhanced Touch Navigation
-          let touchStartX = 0;
-          let touchStartY = 0;
-          let touchEndX = 0;
-          let touchEndY = 0;
-
-          document.addEventListener('touchstart', e => {
-              touchStartX = e.changedTouches[0].screenX;
-              touchStartY = e.changedTouches[0].screenY;
-          });
-
-          document.addEventListener('touchend', e => {
-              touchEndX = e.changedTouches[0].screenX;
-              touchEndY = e.changedTouches[0].screenY;
-              handleSwipe();
-          });
-
-          function handleSwipe() {
-              const diffX = touchEndX - touchStartX;
-              const diffY = touchEndY - touchStartY;
-              const ratioX = Math.abs(diffX / diffY);
-              const swipeDistance = Math.abs(diffX);
-              const minSwipeDistance = 50;
-
-              if (swipeDistance > minSwipeDistance && ratioX > 2) {
-                  if (diffX > 0) {
-                      deck.left();
-                  } else {
-                      deck.right();
-                  }
-              }
-          }
+          
  // Image Zoom
  document.querySelectorAll('.soal img').forEach(img => {
                 img.addEventListener('click', function(e) {
@@ -892,7 +943,7 @@
 
             // Initialize first slide
             updateProgress();
-        });
+        ;
     </script>
 </body>
 </html>
