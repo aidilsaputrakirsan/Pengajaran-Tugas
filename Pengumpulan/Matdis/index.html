@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload File</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      max-width: 400px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+    }
+    h2 {
+      color: #333;
+    }
+    input[type="file"],
+    input[type="email"],
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #9E9E9E;
+      cursor: not-allowed;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #status {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Upload File</h2>
+    <form id="uploadForm">
+      <input type="email" id="email" placeholder="Enter your email" required />
+      <label for="file">Choose a file (PDF only, max 10MB):</label>
+      <input type="file" id="file" name="file" required />
+      <button id="uploadButton" type="submit">Upload</button>
+    </form>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    const uploadForm = document.getElementById('uploadForm');
+    const uploadButton = document.getElementById('uploadButton');
+    const statusText = document.getElementById('status');
+
+    uploadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const fileInput = document.getElementById('file');
+      const emailInput = document.getElementById('email');
+      const file = fileInput.files[0];
+      const email = emailInput.value;
+
+      if (!file || file.type !== "application/pdf") {
+        statusText.textContent = 'Only PDF files are allowed.';
+        return;
+      }
+
+      if (file.size > 10 * 1024 * 1024) {
+        statusText.textContent = 'File size exceeds 10MB.';
+        return;
+      }
+
+      uploadButton.disabled = true;
+      statusText.textContent = 'Uploading file...';
+
+      const reader = new FileReader();
+      reader.onload = async function () {
+        const base64File = reader.result.split(',')[1];
+
+        try {                 
+          const response = await fetch('https://script.google.com/macros/s/AKfycbwxsIqmFZ8hfewCcodkD8TijgIB-xgB_Ylwn3MMCCwuFtKBswVTPbe4sagl-nry0ePItA/exec', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+              file: base64File,
+              filename: file.name,
+              mimeType: file.type,
+              email: email
+            })
+          });
+
+          const result = await response.json();
+          if (result.success) {
+            statusText.textContent = `File uploaded successfully! View file: `;
+            const link = document.createElement('a');
+            link.href = result.fileUrl;
+            link.textContent = 'View File';
+            link.target = '_blank';
+            statusText.appendChild(link);
+          } else {
+            statusText.textContent = `Error: ${result.error}`;
+          }
+        } catch (error) {
+          statusText.textContent = 'An error occurred while uploading.';
+        } finally {
+          uploadButton.disabled = false;
+        }
+      };
+
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>
