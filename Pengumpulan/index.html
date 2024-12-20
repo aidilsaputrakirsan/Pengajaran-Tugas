@@ -5,7 +5,128 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Mata Kuliah</title>
   <style>
-    /* Tambahkan CSS dari jawaban sebelumnya */
+    /* Reset default margin dan padding */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #ece9e6, #ffffff);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .dashboard {
+      width: 90%;
+      max-width: 1200px;
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(to right, #4CAF50, #45a049);
+      padding: 20px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .courses {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .course {
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .course:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .course a {
+      display: block;
+      padding: 20px;
+      text-decoration: none;
+      color: #333;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .course a:hover {
+      color: #4CAF50;
+    }
+
+    .course-status {
+      padding: 10px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      background: #e0f7fa;
+      color: #00695c;
+    }
+
+    .course-status.development {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .course-status.active {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    /* Animasi Loading */
+    .loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #4CAF50;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Responsif */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -14,19 +135,19 @@
       <h1>Dashboard Mata Kuliah</h1>
     </div>
     <div class="courses">
-      <div class="course">
+      <div class="course" onclick="showLoader()">
         <a href="Matdis/index.html">Matematika Diskrit</a>
         <div class="course-status active">Aktif</div>
       </div>
-      <div class="course">
+      <div class="course" onclick="showLoader()">
         <a href="PBO/index.html">Pemrograman Berorientasi Objek</a>
         <div class="course-status active">Aktif</div>
       </div>
-      <div class="course">
+      <div class="course" onclick="showLoader()">
         <a href="Proweb/index.html">Pemrograman Web</a>
         <div class="course-status active">Aktif</div>
       </div>
-      <div class="course">
+      <div class="course" onclick="showLoader()">
         <a href="KomputasiAwan/index.html">Komputasi Awan</a>
         <div class="course-status active">Aktif</div>
       </div>
@@ -36,5 +157,33 @@
       </div>
     </div>
   </div>
+
+  <!-- Loader Animasi -->
+  <div class="loader" id="loader"></div>
+
+  <script>
+    // Menampilkan animasi loader saat membuka halaman
+    function showLoader() {
+      const loader = document.getElementById('loader');
+      loader.style.display = 'block';
+
+      // Simulasi delay sebelum membuka halaman
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 1000); // 1 detik
+    }
+
+    // Efek interaktif saat hover pada kursus
+    const courses = document.querySelectorAll('.course');
+    courses.forEach(course => {
+      course.addEventListener('mouseover', () => {
+        course.style.backgroundColor = '#e8f5e9';
+      });
+
+      course.addEventListener('mouseout', () => {
+        course.style.backgroundColor = '#f9f9f9';
+      });
+    });
+  </script>
 </body>
 </html>
