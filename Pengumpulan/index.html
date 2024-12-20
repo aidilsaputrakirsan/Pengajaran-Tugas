@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Mata Kuliah</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .dashboard {
+      max-width: 900px;
+      width: 90%;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin: 0;
+      color: #333;
+    }
+
+    .courses {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .course {
+      flex: 1 1 calc(50% - 40px);
+      min-width: 250px;
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .course:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .course a {
+      display: block;
+      padding: 20px;
+      text-decoration: none;
+      color: #333;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .course a:hover {
+      color: #007bff;
+    }
+
+    .course-status {
+      padding: 10px;
+      font-size: 14px;
+      color: #666;
+      background: #f0f1f3;
+      border-top: 1px solid #ddd;
+    }
+
+    .course-status.development {
+      color: #d9534f;
+      background: #fbe4e4;
+    }
+
+    .course-status.active {
+      color: #5cb85c;
+      background: #e8f5e9;
+    }
+
+    @media (max-width: 768px) {
+      .course {
+        flex: 1 1 calc(100% - 40px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="header">
+      <h1>Dashboard Mata Kuliah</h1>
+    </div>
+    <div class="courses">
+      <div class="course">
+        <a href="Matdis/index.html">Matematika Diskrit</a>
+        <div class="course-status active">Aktif</div>
+      </div>
+      <div class="course">
+        <a href="PBO/index.html">Pemrograman Berorientasi Objek</a>
+        <div class="course-status active">Aktif</div>
+      </div>
+      <div class="course">
+        <a href="Proweb/index.html">Pemrograman Web</a>
+        <div class="course-status active">Aktif</div>
+      </div>
+      <div class="course">
+        <a href="KomputasiAwan/index.html">Komputasi Awan</a>
+        <div class="course-status active">Aktif</div>
+      </div>
+      <div class="course">
+        <a href="#">(Tahap Pengembangan)</a>
+        <div class="course-status development">Dalam Pengembangan</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
