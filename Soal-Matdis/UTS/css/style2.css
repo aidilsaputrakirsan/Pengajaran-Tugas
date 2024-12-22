@@ -1,0 +1,103 @@
+body {
+  font-family: 'Roboto', 'Open Sans', sans-serif;
+  background: #f0f0f0; 
+  color: #333;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.reveal {
+  background: #f0f0f0;
+}
+
+.reveal .slides section {
+  height: 100vh;
+  padding: 20px !important;
+  top: 0 !important;
+}
+
+.soal {
+  background: #fff;
+  border-radius: 5px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 90%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4em;
+}
+
+.soal h3 {
+  color: #003366;
+  margin-top: 0;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.soal h2 {
+  color: #003366;
+  text-align: center;
+  font-size: 1.8em;
+}
+
+.soal p, .soal li {
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+strong {
+  color: #003366;
+}
+
+img {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: block;
+  margin: 15px auto;
+  max-width: 90%;
+  height: auto;
+}
+
+.matrix-container {
+  overflow-x: auto;
+  margin: 15px 0;
+  font-size: 0.9em;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  .reveal .slides section {
+    padding: 10px !important;
+  }
+
+  .soal {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .soal h3 {
+    font-size: 1.3em;
+  }
+
+  .soal h2 {
+    font-size: 1.5em;
+  }
+
+  .soal p, .soal li {
+    font-size: 0.9em;
+  }
+
+  .matrix-container {
+    font-size: 0.8em;
+  }
+}
+
+/* Fix for MathJax responsiveness */
+.MathJax {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
