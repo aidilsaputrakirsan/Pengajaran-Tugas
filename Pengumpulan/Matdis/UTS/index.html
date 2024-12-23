@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload File Matdis</title>
+  <link rel="icon" href="../icon.png" type="image/png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      max-width: 400px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+    }
+    h2 {
+      color: #333;
+    }
+    input[type="file"],
+    input[type="email"],
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #9E9E9E;
+      cursor: not-allowed;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #status {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Upload File</h2>
+    <form id="uploadForm">
+      <input type="email" id="email" placeholder="Enter your email" required />
+      <label for="file">Choose a file (PDF only, max 10MB):</label>
+      <input type="file" id="file" name="file" required />
+      <button id="uploadButton" type="submit">Upload</button>
+    </form>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    const MatdisNamespace = {
+        
+      webAppUrl: 'https://script.google.com/macros/s/AKfycbxqp7rkb2xQ0PTKsDZ4WM1JXw2dkDDVPeW0KhTevY7dRmDlztvEk1jN_lVt1Y2-IDAg4w/exec'
+    };
+  
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+  
+      const fileInput = document.getElementById('file');
+      const emailInput = document.getElementById('email');
+      const file = fileInput.files[0];
+      const email = emailInput.value;
+  
+      if (!file || file.type !== "application/pdf") {
+        document.getElementById('status').textContent = 'Only PDF files are allowed.';
+        return;
+      }
+  
+      if (file.size > 10 * 1024 * 1024) {
+        document.getElementById('status').textContent = 'File size exceeds 10MB.';
+        return;
+      }
+  
+      document.getElementById('uploadButton').disabled = true;
+      document.getElementById('status').textContent = 'Uploading file...';
+  
+      const reader = new FileReader();
+      reader.onload = async function () {
+        const base64File = reader.result.split(',')[1];
+  
+        try {
+          const response = await fetch(MatdisNamespace.webAppUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+              file: base64File,
+              filename: file.name,
+              mimeType: file.type,
+              email: email
+            })
+          });
+  
+          const result = await response.json();
+          if (result.success) {
+            document.getElementById('status').textContent = `File uploaded successfully! View file: `;
+            const link = document.createElement('a');
+            link.href = result.fileUrl;
+            link.textContent = 'View File';
+            link.target = '_blank';
+            document.getElementById('status').appendChild(link);
+          } else {
+            document.getElementById('status').textContent = `Error: ${result.error}`;
+          }
+        } catch (error) {
+          document.getElementById('status').textContent = 'An error occurred while uploading.';
+        } finally {
+          document.getElementById('uploadButton').disabled = false;
+        }
+      };
+  
+      reader.readAsDataURL(file);
+    });
+  </script>
+  
+</body>
+</html>
