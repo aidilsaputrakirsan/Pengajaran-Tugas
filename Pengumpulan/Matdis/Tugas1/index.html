@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Tugas 1 - Matematika Diskrit</title>
+    <link rel="icon" href="../../icon.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ece9e6 0%, #ffffff 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .form-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            padding: 25px 20px;
+            position: relative;
+        }
+
+        .form-header-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-button {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+            flex-shrink: 0;
+            padding: 5px;
+        }
+
+        .back-button:hover {
+            opacity: 1;
+        }
+
+        .form-header h1 {
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .form-content {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            display: none;
+        }
+
+        .file-input-trigger {
+            display: block;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border: 2px dashed #4CAF50;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-input-trigger:hover {
+            background: #f0fff4;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 14px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .submit-button:disabled {
+            background: #9e9e9e;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .status-success {
+            background: #f0fff4;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        .status-error {
+            background: #fff5f5;
+            color: #c53030;
+            border: 1px solid #feb2b2;
+        }
+
+        .file-info {
+            margin-top: 10px;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .form-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .form-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-header h1 {
+                font-size: 1.3rem;
+            }
+
+            .back-button {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-card">
+            <div class="form-header">
+                <div class="form-header-content">
+                    <a href="../index.html" class="back-button">← Kembali</a>
+                    <h1>Upload Tugas 1 - Matematika Diskrit</h1>
+                </div>
+            </div>
+            <div class="form-content">
+                <form id="uploadForm">
+                    <div class="form-group">
+                        <label for="name">Nama Lengkap</label>
+                        <input type="text" id="name" class="form-control" required placeholder="Masukkan nama lengkap">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nim">NIM</label>
+                        <input type="text" id="nim" class="form-control" required placeholder="Masukkan NIM">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" required placeholder="Masukkan email">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="file-input-wrapper">
+                            <label for="file" class="file-input-trigger" id="fileLabel">
+                                Klik untuk memilih file PDF (Maks. 10MB)
+                            </label>
+                            <input type="file" id="file" accept=".pdf" required>
+                        </div>
+                        <div class="file-info" id="fileInfo"></div>
+                    </div>
+
+                    <button type="submit" class="submit-button" id="uploadButton">
+                        Upload Tugas
+                        <div class="loading-spinner" id="spinner"></div>
+                    </button>
+                </form>
+                <div id="status"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const MatdisNamespace = {
+            webAppUrl: 'https://script.google.com/macros/s/AKfycbxqp7rkb2xQ0PTKsDZ4WM1JXw2dkDDVPeW0KhTevY7dRmDlztvEk1jN_lVt1Y2-IDAg4w/exec'
+        };
+
+        // File input handling
+        document.getElementById('file').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const fileInfo = document.getElementById('fileInfo');
+            const fileLabel = document.getElementById('fileLabel');
+            
+            if (file) {
+                const fileSize = (file.size / (1024 * 1024)).toFixed(2);
+                fileLabel.textContent = file.name;
+                fileInfo.textContent = `Ukuran file: ${fileSize}MB`;
+            } else {
+                fileLabel.textContent = 'Klik untuk memilih file PDF (Maks. 10MB)';
+                fileInfo.textContent = '';
+            }
+        });
+
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const nim = document.getElementById('nim').value;
+            const email = document.getElementById('email').value;
+            const fileInput = document.getElementById('file');
+            const file = fileInput.files[0];
+            const status = document.getElementById('status');
+            const spinner = document.getElementById('spinner');
+            const uploadButton = document.getElementById('uploadButton');
+
+            if (!file || file.type !== "application/pdf") {
+                showStatus('Hanya file PDF yang diperbolehkan.', 'error');
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                showStatus('Ukuran file melebihi 10MB.', 'error');
+                return;
+            }
+
+            uploadButton.disabled = true;
+            spinner.style.display = 'block';
+            uploadButton.textContent = 'Mengunggah...';
+
+            const reader = new FileReader();
+            reader.onload = async function() {
+                const base64File = reader.result.split(',')[1];
+
+                try {
+                    const response = await fetch(MatdisNamespace.webAppUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams({
+                            name: name,
+                            nim: nim,
+                            email: email,
+                            file: base64File,
+                            filename: file.name,
+                            mimeType: file.type
+                        })
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        showStatus(`File berhasil diunggah! Lihat file: <a href="${result.fileUrl}" target="_blank">View File</a>`, 'success');
+                    } else {
+                        showStatus(`Error: ${result.error}`, 'error');
+                    }
+                } catch (error) {
+                    showStatus('Terjadi kesalahan saat mengunggah file.', 'error');
+                } finally {
+                    uploadButton.disabled = false;
+                    spinner.style.display = 'none';
+                    uploadButton.textContent = 'Upload Tugas';
+                }
+            };
+
+            reader.readAsDataURL(file);
+        });
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.style.display = 'block';
+            status.innerHTML = message;
+            status.className = type === 'success' ? 'status-success' : 'status-error';
+        }
+    </script>
+</body>
+</html>

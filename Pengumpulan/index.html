@@ -1,190 +1,275 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pengumpulan Tugas Mata Kuliah</title>
-  <link rel="icon" href="icon.png" type="image/png">
-  <style>
-    /* Reset default margin dan padding */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumpulan Tugas Mata Kuliah</title>
+    <link rel="icon" href="icon.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom, #ece9e6, #ffffff);
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ece9e6 0%, #ffffff 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
 
-    .dashboard {
-      width: 90%;
-      max-width: 1200px;
-      background: #ffffff;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-    }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-    .header {
-      background: linear-gradient(to right, #4CAF50, #45a049);
-      padding: 20px;
-      text-align: center;
-      color: #ffffff;
-    }
+        .dashboard {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
 
-    .header h1 {
-      font-size: 2rem;
-      font-weight: bold;
-    }
+        .header {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .courses {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.1) 100%);
+            z-index: 1;
+        }
 
-    .course {
-      background: #f9f9f9;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
+        .header h1 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
 
-    .course:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 30px;
+        }
 
-    .course a {
-      display: block;
-      padding: 20px;
-      text-decoration: none;
-      color: #333;
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-align: center;
-    }
+        .course {
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
 
-    .course a:hover {
-      color: #4CAF50;
-    }
+        .course:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
 
-    .course-status {
-      padding: 10px;
-      text-align: center;
-      font-size: 0.9rem;
-      font-weight: bold;
-      background: #e0f7fa;
-      color: #00695c;
-    }
+        .course a {
+            display: block;
+            padding: 25px 20px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
 
-    .course-status.development {
-      background: #ffebee;
-      color: #c62828;
-    }
+        .course a:hover {
+            color: #4CAF50;
+        }
 
-    .course-status.active {
-      background: #e8f5e9;
-      color: #2e7d32;
-    }
+        .course-status {
+            padding: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
 
-    /* Animasi Loading */
-    .loader {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid #4CAF50;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      display: none;
-    }
+        .course-status.development {
+            background: #fff5f5;
+            color: #e53e3e;
+        }
 
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
+        .course-status.active {
+            background: #f0fff4;
+            color: #38a169;
+        }
 
-    /* Responsif */
-    @media (max-width: 768px) {
-      .header h1 {
-        font-size: 1.5rem;
-      }
-    }
-  </style>
+        .loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+            z-index: 1000;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .courses {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 30px 15px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .courses {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 15px;
+            }
+
+            .course a {
+                font-size: 1.1rem;
+                padding: 20px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .course-status {
+                padding: 8px;
+                font-size: 0.8rem;
+            }
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.3);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="dashboard">
-    <div class="header">
-      <h1>Pengumpulan Tugas Mata Kuliah</h1>
+    <div class="container">
+        <div class="dashboard">
+            <div class="header">
+                <h1>Pengumpulan Tugas Mata Kuliah</h1>
+            </div>
+            <div class="courses">
+                <div class="course" onclick="showLoader()">
+                    <a href="Matdis/index.html">Matematika Diskrit</a>
+                    <div class="course-status active">Aktif</div>
+                </div>
+                <div class="course" onclick="showLoader()">
+                    <a href="PBO/index.html">Pemrograman Berorientasi Objek</a>
+                    <div class="course-status development">Tidak Aktif</div>
+                </div>
+                <div class="course" onclick="showLoader()">
+                    <a href="Proweb/index.html">Pemrograman Web</a>
+                    <div class="course-status development">Tidak Aktif</div>
+                </div>
+                <div class="course" onclick="showLoader()">
+                    <a href="KomputasiAwan/index.html">Komputasi Awan</a>
+                    <div class="course-status development">Tidak Aktif</div>
+                </div>
+                <div class="course">
+                    <a href="#">(Tahap Pengembangan)</a>
+                    <div class="course-status development">Dalam Pengembangan</div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="courses">
-      <div class="course" onclick="showLoader()">
-        <a href="Matdis/index.html">Matematika Diskrit</a>
-        <div class="course-status active">Aktif</div>
-      </div>
-      <div class="course" onclick="showLoader()">
-        <a href="PBO/index.html">Pemrograman Berorientasi Objek</a>
-        <div class="course-status development">Tidak Aktif</div>
-      </div>
-      <div class="course" onclick="showLoader()">
-        <a href="Proweb/index.html">Pemrograman Web</a>
-        <div class="course-status development">Tidak Aktif</div>
-      </div>
-      <div class="course" onclick="showLoader()">
-        <a href="KomputasiAwan/index.html">Komputasi Awan</a>
-        <div class="course-status development">Tidak Aktif</div>
-      </div>
-      <div class="course">
-        <a href="#">(Tahap Pengembangan)</a>
-        <div class="course-status development">Dalam Pengembangan</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Loader Animasi -->
-  <div class="loader" id="loader"></div>
+    <div class="loader" id="loader"></div>
 
-  <script>
-    // Menampilkan animasi loader saat membuka halaman
-    function showLoader() {
-      const loader = document.getElementById('loader');
-      loader.style.display = 'block';
+    <script>
+        function showLoader() {
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block';
+            
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 1000);
+        }
 
-      // Simulasi delay sebelum membuka halaman
-      setTimeout(() => {
-        loader.style.display = 'none';
-      }, 1000); // 1 detik
-    }
+        // Enhanced hover interactions
+        document.querySelectorAll('.course').forEach(course => {
+            course.addEventListener('mouseenter', () => {
+                course.style.transform = 'translateY(-10px) scale(1.02)';
+                course.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
+                course.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
 
-    // Efek interaktif saat hover pada kursus
-    const courses = document.querySelectorAll('.course');
-    courses.forEach(course => {
-      course.addEventListener('mouseover', () => {
-        course.style.backgroundColor = '#e8f5e9';
-      });
+            course.addEventListener('mouseleave', () => {
+                course.style.transform = 'translateY(0) scale(1)';
+                course.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.05)';
+            });
 
-      course.addEventListener('mouseout', () => {
-        course.style.backgroundColor = '#f9f9f9';
-      });
-    });
-  </script>
+            course.addEventListener('click', function(e) {
+                if (!course.querySelector('a[href="#"]')) {
+                    const rect = course.getBoundingClientRect();
+                    const ripple = document.createElement('div');
+                    ripple.className = 'ripple';
+                    ripple.style.left = `${e.clientX - rect.left}px`;
+                    ripple.style.top = `${e.clientY - rect.top}px`;
+                    
+                    course.appendChild(ripple);
+                    
+                    setTimeout(() => ripple.remove(), 600);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
