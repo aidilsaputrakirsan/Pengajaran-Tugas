@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload RemedUTS - Matematika Diskrit</title>
+    <title>Upload Tugas 2 - Pemrograman Web</title>
     <link rel="icon" href="../../icon.png" type="image/png">
     <style>
         * {
@@ -233,7 +233,7 @@
             <div class="form-header">
                 <div class="form-header-content">
                     <a href="../index.html" class="back-button">← Kembali</a>
-                    <h1>Upload Remed UTS - Matematika Diskrit</h1>
+                    <h1>Upload Tugas 2 - Pemrograman Web</h1>
                 </div>
             </div>
             <div class="form-content">
@@ -265,7 +265,7 @@
 
                     <div class="form-group">
                         <p style="color: #2c3e50; background-color: #f0f4f8; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
-                            <strong>Keterangan:</strong> File yang diunggah harus dalam format PDF dengan nama file <strong>"NIM_Nama_RemedUTS.pdf"</strong>. Contoh: <em>"10251000_Aidil_RemedUTS.pdf"</em>
+                            <strong>Keterangan:</strong> File yang diunggah harus dalam format PDF dengan nama file <strong>"NIM_Nama_TugasX.pdf"</strong>. Contoh: <em>"10251000_Aidil_Tugas2.pdf"</em>
                         </p>
                     </div>
 
@@ -280,11 +280,11 @@
     </div>
 
     <script>
-        const MatdisNamespace = {
-            webAppUrl: 'https://script.google.com/macros/s/AKfycbwZx7XrtW5Ee_d6pdDpyMkef1SBuxZBv9avmjAACCOkfeEeIR91HgxJG1Q7Nv2Rc_uzHQ/exec'
+        const ProwebNamespace = {
+            webAppUrl: 'https://script.google.com/macros/s/AKfycbwBW434ZBkhi0IWwiHr1atwIb7Xvrl8qNpAOhSyoWHVplQfnotNznHE7ihzRnoLuyVlrQ/exec'
         };
 
-        const tugas = "RemedUTS"; // Tugas diatur berdasarkan halaman sebelumnya
+        const tugas = "Tugas2"; // Tugas diatur berdasarkan halaman sebelumnya
 
         const fileInput = document.getElementById('file');
         const fileInfo = document.getElementById('fileInfo');
@@ -334,7 +334,7 @@
                 const base64File = reader.result.split(',')[1];
 
                 try {
-                    const response = await fetch(MatdisNamespace.webAppUrl, {
+                    const response = await fetch(ProwebNamespace.webAppUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         body: new URLSearchParams({
