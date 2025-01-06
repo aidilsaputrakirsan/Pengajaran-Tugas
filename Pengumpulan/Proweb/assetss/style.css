@@ -1,9 +1,11 @@
+/* Reset CSS */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Body Styling */
 body {
     font-family: 'Segoe UI', 'Arial', sans-serif;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
@@ -12,11 +14,13 @@ body {
     padding: 20px;
 }
 
+/* Container */
 .container {
     max-width: 600px;
     margin: 0 auto;
 }
 
+/* Back Button */
 .back-button {
     display: inline-block;
     color: #4CAF50;
@@ -33,6 +37,7 @@ body {
     transform: translateX(-5px);
 }
 
+/* Form Card */
 .form-card {
     background: #2d2d2d;
     border-radius: 15px;
@@ -40,6 +45,7 @@ body {
     overflow: hidden;
 }
 
+/* Form Header */
 .form-header {
     background: linear-gradient(135deg, #4CAF50 0%, #2e7d32 100%);
     padding: 25px;
@@ -51,56 +57,127 @@ body {
     font-size: 1.5rem;
 }
 
+/* Form Content */
 .form-content {
-    padding: 20px;
+    padding: 20px 30px; /* Ruang di sisi kiri dan kanan */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Jarak antar elemen */
 }
 
+/* Form Group */
 .form-group {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Jarak antara label dan input */
 }
 
+/* Label Styling */
 .form-group label {
     display: block;
-    margin-bottom: 8px;
     font-weight: bold;
+    font-size: 1rem;
+    color: #4CAF50;
 }
 
+/* Input Styling */
 .form-control {
     width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    background: #363636;
-    color: #e4e4e4;
+    padding: 12px 15px;
     border: 1px solid #4CAF50;
+    border-radius: 8px;
+    background: #282828;
+    color: #e4e4e4;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.submit-button {
-    width: 100%;
-    padding: 10px;
-    background: #4CAF50;
-    color: #fff;
-    border: none;
+.form-control:focus {
+    outline: none;
+    border-color: #81c784;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.8);
+}
+
+/* Upload File Styling */
+.file-input-trigger {
+    display: block;
+    padding: 12px 15px;
+    background: #282828;
+    color: #e4e4e4;
+    border: 1px dashed #4CAF50;
     border-radius: 8px;
     cursor: pointer;
+    text-align: center;
+    font-size: 1rem;
     transition: all 0.3s ease;
 }
 
+.file-input-trigger:hover {
+    background: #303030;
+    border-color: #81c784;
+    color: #a5d6a7;
+}
+
+/* File Info */
+.file-info {
+    font-size: 0.875rem;
+    color: #aaa;
+    margin-top: 8px;
+}
+
+/* Submit Button */
+.submit-button {
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 .submit-button:hover {
-    background: #45a049;
+    background: linear-gradient(135deg, #45a049 0%, #388e3c 100%);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
     transform: translateY(-2px);
 }
 
-.loading-spinner {
-    display: none;
-    width: 16px;
-    height: 16px;
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #4CAF50;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+/* Status Messages */
+#status {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 0.95rem;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.status-success {
+    background: #f0fff4;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.status-error {
+    background: #fff5f5;
+    color: #c53030;
+    border: 1px solid #feb2b2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-content {
+        padding: 15px;
+    }
+
+    .form-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .back-button {
+        margin-bottom: 15px;
+    }
 }
