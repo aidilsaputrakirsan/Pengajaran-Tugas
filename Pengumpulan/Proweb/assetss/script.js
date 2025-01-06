@@ -17,7 +17,7 @@ fileInput.addEventListener('change', function () {
         fileLabel.classList.add('active');
     } else {
         fileInfo.textContent = "Ukuran file: 0 MB";
-        fileLabel.textContent = "Klik untuk memilih file PDF (Maks. 10MB)";
+        fileLabel.textContent = "Klik untuk memilih file PDF (Maks. 5MB)";
         fileLabel.classList.remove('active');
     }
 });
