@@ -17,7 +17,7 @@ fileInput.addEventListener('change', function () {
         fileLabel.classList.add('active');
     } else {
         fileInfo.textContent = "Ukuran file: 0 MB";
-        fileLabel.textContent = "Klik untuk memilih file PDF (Maks. 5MB)";
+        fileLabel.textContent = "Klik untuk memilih file PDF (Maks. 5MB)"; // Menyesuaikan batas ukuran
         fileLabel.classList.remove('active');
     }
 });
@@ -33,13 +33,15 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
     const spinner = document.getElementById('spinner');
     const uploadButton = document.getElementById('uploadButton');
 
+    // Validasi tipe file PDF
     if (!file || file.type !== "application/pdf") {
         showStatus('Hanya file PDF yang diperbolehkan.', 'error');
         return;
     }
 
-    if (file.size > 10 * 1024 * 1024) {
-        showStatus('Ukuran file melebihi 10MB.', 'error');
+    // Validasi ukuran file maksimal 5MB
+    if (file.size > 5 * 1024 * 1024) { // Diubah dari 10MB ke 5MB
+        showStatus('Ukuran file melebihi 5MB.', 'error'); // Menyesuaikan pesan
         return;
     }
 
@@ -71,7 +73,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
                 showStatus(`File berhasil diunggah! Lihat file: <a href="${result.fileUrl}" target="_blank">View File</a>`, 'success');
                 document.getElementById('uploadForm').reset();
                 fileInfo.textContent = "Ukuran file: 0 MB";
-                fileLabel.textContent = "Klik untuk memilih file PDF (Maks. 10MB)";
+                fileLabel.textContent = "Klik untuk memilih file PDF (Maks. 5MB)"; // Menyesuaikan batas ukuran
                 fileLabel.classList.remove('active');
             } else {
                 showStatus(`Error: ${result.error}`, 'error');
