@@ -2,11 +2,18 @@ const ProwebNamespace = {
     webAppUrl: 'https://script.google.com/macros/s/AKfycbwBW434ZBkhi0IWwiHr1atwIb7Xvrl8qNpAOhSyoWHVplQfnotNznHE7ihzRnoLuyVlrQ/exec'
 };
 
+// Ambil nilai tugas dari atribut data di tag <html>
 const tugas = document.documentElement.getAttribute('data-tugas') || "Tugas1";
 
 const fileInput = document.getElementById('file');
 const fileInfo = document.getElementById('fileInfo');
 const fileLabel = document.getElementById('fileLabel');
+const uploadButton = document.getElementById('uploadButton');
+const spinner = document.getElementById('spinner');
+
+// Atur teks tombol upload sesuai tugas
+const originalButtonText = uploadButton.textContent.replace('Upload Tugas', `Upload ${tugas}`);
+uploadButton.textContent = `Upload ${tugas}`;
 
 fileInput.addEventListener('change', function () {
     const file = fileInput.files[0];
@@ -30,8 +37,6 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
     const email = document.getElementById('email').value.trim();
     const file = fileInput.files[0];
     const status = document.getElementById('status');
-    const spinner = document.getElementById('spinner');
-    const uploadButton = document.getElementById('uploadButton');
 
     // Validasi tipe file PDF
     if (!file || file.type !== "application/pdf") {
@@ -54,7 +59,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
 
     uploadButton.disabled = true;
     spinner.style.display = 'block';
-    uploadButton.textContent = 'Mengunggah...';
+    uploadButton.textContent = `Mengunggah ${tugas}...`;
 
     const reader = new FileReader();
     reader.onload = async function () {
@@ -91,7 +96,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
         } finally {
             uploadButton.disabled = false;
             spinner.style.display = 'none';
-            uploadButton.textContent = 'Upload Tugas';
+            uploadButton.textContent = `Upload ${tugas}`;
         }
     };
 
