@@ -2,7 +2,7 @@ const ProwebNamespace = {
     webAppUrl: 'https://script.google.com/macros/s/AKfycbwBW434ZBkhi0IWwiHr1atwIb7Xvrl8qNpAOhSyoWHVplQfnotNznHE7ihzRnoLuyVlrQ/exec'
 };
 
-const tugas = "Tugas1"; // Tugas diatur berdasarkan halaman sebelumnya
+const tugas = document.documentElement.getAttribute('data-tugas') || "Tugas1";
 
 const fileInput = document.getElementById('file');
 const fileInfo = document.getElementById('fileInfo');
@@ -46,7 +46,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
     }
 
     // Validasi format nama file
-    const expectedFilename = `${nim}_${name.replace(/\s+/g, '_')}_Tugas1.pdf`;
+    const expectedFilename = `${nim}_${name.replace(/\s+/g, '_')}_${tugas}.pdf`;
     if (file.name !== expectedFilename) {
         showStatus(`Nama file tidak sesuai. Harusnya "${expectedFilename}".`, 'error');
         return;
