@@ -1,0 +1,110 @@
+/* Reset dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variabel tema */
+:root {
+  --bg-color: #121212;
+  --header-bg: linear-gradient(135deg, #1e1e1e, #323232);
+  --card-bg: #1e1e1e;
+  --text-color: #e0e0e0;
+  --accent-color: #4CAF50;
+  --hover-bg: #2a2a2a;
+  --border-color: #333;
+}
+
+/* Body dan font */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  background: var(--header-bg);
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  animation: fadeIn 1s ease-in-out;
+}
+header h1 {
+  font-size: 2em;
+  color: var(--text-color);
+}
+
+/* Main konten */
+main {
+  padding: 20px;
+}
+
+/* Container pencarian */
+.search-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.search-container input {
+  width: 80%;
+  max-width: 400px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  font-size: 1em;
+  transition: all 0.3s ease;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+.search-container input:focus {
+  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+/* Tabel responsif */
+.table-container {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  margin: 0 auto;
+  animation: slideUp 0.5s ease-in-out;
+}
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+th {
+  background-color: var(--border-color);
+  color: #fff;
+}
+tr:hover {
+  background-color: var(--hover-bg);
+  transition: background-color 0.3s ease;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: var(--card-bg);
+  color: #888;
+  font-size: 0.9em;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Animasi */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
