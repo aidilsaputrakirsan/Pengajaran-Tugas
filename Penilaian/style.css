@@ -16,6 +16,18 @@ body {
     padding: 20px;
   }
   
+  .search-container {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .search-container input {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
   table {
     width: 100%;
     border-collapse: collapse;
