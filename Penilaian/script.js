@@ -37,8 +37,18 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // Event listener untuk pencarian
     searchInput.addEventListener('input', function() {
-      const keyword = this.value.toLowerCase();
-      const filteredData = feedbackData.filter(item => item.namaInitial.toLowerCase().includes(keyword));
+      const keyword = this.value.toLowerCase().trim();
+      let filteredData = feedbackData.filter(item => 
+        item.namaInitial.toLowerCase().includes(keyword)
+      );
+  
+      // Mengurutkan data sehingga nama yang cocok dari awal muncul lebih dahulu
+      filteredData.sort((a, b) => {
+        let indexA = a.namaInitial.toLowerCase().indexOf(keyword);
+        let indexB = b.namaInitial.toLowerCase().indexOf(keyword);
+        return indexA - indexB;
+      });
+      
       renderTable(filteredData);
     });
   });
