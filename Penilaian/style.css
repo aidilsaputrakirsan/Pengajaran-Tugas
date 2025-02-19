@@ -16,7 +16,7 @@
     --border-color: #333;
   }
   
-  /* Body dan font */
+  /* Body & Font */
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-color);
@@ -37,14 +37,14 @@
     color: var(--text-color);
   }
   
-  /* Main konten */
+  /* Main Konten */
   main {
     padding: 20px;
     display: flex;
     justify-content: center;
   }
   
-  /* Container menu */
+  /* Container Menu */
   .menu-container {
     display: flex;
     flex-direction: column;
@@ -53,23 +53,25 @@
     max-width: 800px;
   }
   
-  /* Item menu */
+  /* Item Menu */
   .menu-item {
+    display: block;
+    text-decoration: none;
+    color: inherit;
     background-color: var(--card-bg);
     padding: 20px;
     border: 1px solid var(--border-color);
     border-radius: 10px;
     text-align: center;
-    cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.4);
   }
   .menu-item h2 {
-    margin: 0;
     font-size: 1.2em;
+    margin: 0;
   }
   
-  /* Efek hover dan active */
+  /* Efek Hover dan Active */
   .menu-item:hover {
     background-color: var(--hover-bg);
     transform: scale(1.03);
