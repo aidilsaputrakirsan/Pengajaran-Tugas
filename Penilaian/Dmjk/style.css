@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 
-/* Variabel tema */
+/* Variabel tema dark */
 :root {
   --bg-color: #121212;
   --header-bg: linear-gradient(135deg, #1e1e1e, #323232);
@@ -14,6 +14,8 @@
   --accent-color: #4CAF50;
   --hover-bg: #2a2a2a;
   --border-color: #333;
+  --btn-bg: #1e1e1e;
+  --btn-hover: #333;
 }
 
 /* Body dan font */
@@ -42,10 +44,36 @@ main {
   padding: 20px;
 }
 
+/* Container tombol tugas */
+.btn-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.tugas-btn {
+  background-color: var(--btn-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 0.9em;
+}
+.tugas-btn:hover {
+  background-color: var(--btn-hover);
+  transform: scale(1.05);
+}
+.tugas-btn:active {
+  transform: scale(0.98);
+}
+
 /* Container pencarian */
 .search-container {
-  margin-bottom: 20px;
   text-align: center;
+  margin-bottom: 20px;
 }
 .search-container input {
   width: 80%;
@@ -107,4 +135,15 @@ footer {
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsif */
+@media (max-width: 600px) {
+  .tugas-btn {
+    font-size: 0.8em;
+    padding: 8px 12px;
+  }
+  .search-container input {
+    width: 90%;
+  }
 }

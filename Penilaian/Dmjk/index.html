@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feedback Tugas DMJK</title>
+  <title>Feedback Tugas - DMJK</title>
   <link rel="icon" href="../../Pengumpulan/icon.png" type="image/png">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -12,10 +12,35 @@
     <h1>Feedback Tugas</h1>
   </header>
   <main>
-    <div class="search-container">
+    <!-- Container tombol pilihan tugas -->
+    <section class="btn-container">
+      <!-- Buat tombol untuk Tugas ke 1 hingga 16 -->
+      <!-- Untuk tugas 8 dan 16, tambahkan label UTS dan UAS -->
+      <button class="tugas-btn" data-sheet="tugas1">Tugas 1</button>
+      <button class="tugas-btn" data-sheet="tugas2">Tugas 2</button>
+      <button class="tugas-btn" data-sheet="tugas3">Tugas 3</button>
+      <button class="tugas-btn" data-sheet="tugas4">Tugas 4</button>
+      <button class="tugas-btn" data-sheet="tugas5">Tugas 5</button>
+      <button class="tugas-btn" data-sheet="tugas6">Tugas 6</button>
+      <button class="tugas-btn" data-sheet="tugas7">Tugas 7</button>
+      <button class="tugas-btn" data-sheet="tugas8">UTS</button>
+      <button class="tugas-btn" data-sheet="tugas9">Tugas 9</button>
+      <button class="tugas-btn" data-sheet="tugas10">Tugas 10</button>
+      <button class="tugas-btn" data-sheet="tugas11">Tugas 11</button>
+      <button class="tugas-btn" data-sheet="tugas12">Tugas 12</button>
+      <button class="tugas-btn" data-sheet="tugas13">Tugas 13</button>
+      <button class="tugas-btn" data-sheet="tugas14">Tugas 14</button>
+      <button class="tugas-btn" data-sheet="tugas15">Tugas 15</button>
+      <button class="tugas-btn" data-sheet="tugas16">UAS</button>
+    </section>
+
+    <!-- Pencarian berdasarkan Nama Initial -->
+    <section class="search-container">
       <input type="text" id="searchInput" placeholder="Cari berdasarkan Nama Initial...">
-    </div>
-    <div class="table-container">
+    </section>
+    
+    <!-- Tabel feedback -->
+    <section class="table-container">
       <table id="feedbackTable">
         <thead>
           <tr>
@@ -26,10 +51,10 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Data akan ditambahkan secara dinamis oleh script.js -->
+          <!-- Data akan diisi secara dinamis oleh script.js -->
         </tbody>
       </table>
-    </div>
+    </section>
   </main>
   <footer>
     <p>&copy; 2025 Tugas DMJK</p>
