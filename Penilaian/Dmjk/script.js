@@ -5,10 +5,31 @@ document.addEventListener('DOMContentLoaded', function() {
   const searchInput = document.getElementById('searchInput');
   const tableBody = document.querySelector('#feedbackTable tbody');
   const tugasButtons = document.querySelectorAll('.tugas-btn');
+  const tableContainer = document.querySelector('.table-container');
   let feedbackData = [];
+  
+  // Fungsi untuk menampilkan loading overlay
+  function showLoading() {
+    // Cek apakah overlay sudah ada
+    if (!document.querySelector('.loading-overlay')) {
+      const overlay = document.createElement('div');
+      overlay.classList.add('loading-overlay');
+      overlay.innerHTML = `<div class="spinner"></div>`;
+      tableContainer.appendChild(overlay);
+    }
+  }
+  
+  // Fungsi untuk menghilangkan loading overlay
+  function hideLoading() {
+    const overlay = document.querySelector('.loading-overlay');
+    if (overlay) {
+      overlay.remove();
+    }
+  }
   
   // Fungsi untuk mengambil data berdasarkan sheet
   function fetchData(sheetName) {
+    showLoading();
     const url = `${baseUrl}?sheet=${sheetName}`;
     fetch(url)
       .then(response => response.json())
@@ -16,7 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
         feedbackData = data;
         renderTable(feedbackData);
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => console.error('Error:', error))
+      .finally(() => {
+        hideLoading();
+      });
   }
   
   // Fungsi untuk menampilkan data pada tabel
