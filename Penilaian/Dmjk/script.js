@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const url = 'https://script.google.com/macros/s/AKfycbzQbfg8bjhV2Ww4PJDS0Tj7L0_PsSU_pzbeuBf-scORD6xg9QLhyy36bYeQw2KBGELRxA/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbzlGg7uo7ukia2Vi845JmlUNwJhkti0O9UDV-AtoYYwIZ_6W4IF6LHZuEKX-c1RCM-l5Q/exec';
   const searchInput = document.getElementById('searchInput');
   const tableBody = document.querySelector('#feedbackTable tbody');
   let feedbackData = [];
