@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // URL Apps Script dasar (tanpa parameter)
-  const baseUrl = 'https://script.google.com/macros/s/AKfycbzlGg7uo7ukia2Vi845JmlUNwJhkti0O9UDV-AtoYYwIZ_6W4IF6LHZuEKX-c1RCM-l5Q/exec';
+  const baseUrl = 'https://script.google.com/macros/s/AKfycbzaC88rTzhkatp4rUocrVorc3zOigX-LHtesMp8GD9mrgxvaWWaJ9X4Cm7hgcQnyIcW/exec';
   
   const searchInput = document.getElementById('searchInput');
   const tableBody = document.querySelector('#feedbackTable tbody');
@@ -10,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Fungsi untuk menampilkan loading overlay
   function showLoading() {
-    // Cek apakah overlay sudah ada
     if (!document.querySelector('.loading-overlay')) {
       const overlay = document.createElement('div');
       overlay.classList.add('loading-overlay');
@@ -22,12 +20,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // Fungsi untuk menghilangkan loading overlay
   function hideLoading() {
     const overlay = document.querySelector('.loading-overlay');
-    if (overlay) {
-      overlay.remove();
-    }
+    if (overlay) overlay.remove();
   }
   
-  // Fungsi untuk mengambil data berdasarkan sheet
+  // Fungsi untuk mengambil data dari sheet
   function fetchData(sheetName) {
     showLoading();
     const url = `${baseUrl}?sheet=${sheetName}`;
@@ -38,17 +34,29 @@ document.addEventListener('DOMContentLoaded', function() {
         renderTable(feedbackData);
       })
       .catch(error => console.error('Error:', error))
-      .finally(() => {
-        hideLoading();
-      });
+      .finally(() => hideLoading());
   }
   
-  // Fungsi untuk menampilkan data pada tabel
+  // Fungsi untuk memformat timestamp menjadi "Hari, jam:menit:detik"
+  function formatTimestamp(timestamp) {
+    if (!timestamp) return "";
+    const date = new Date(timestamp);
+    // Daftar nama hari dalam bahasa Indonesia (index 0 = Minggu)
+    const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
+    const dayName = days[date.getDay()];
+    // Mengambil jam, menit, detik
+    const hours = date.getHours(); // tidak dipad dengan nol jika <10, sesuai contoh
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+    return `${dayName}, ${hours}:${minutes}:${seconds}`;
+  }
+  
+  // Fungsi untuk merender tabel
   function renderTable(data) {
     tableBody.innerHTML = '';
     if (data.length === 0) {
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td colspan="4" style="text-align:center;">Data tidak ditemukan</td>`;
+      tr.innerHTML = `<td colspan="5" style="text-align:center;">Data tidak ditemukan</td>`;
       tableBody.appendChild(tr);
       return;
     }
@@ -59,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <td>${row.tugasKe}</td>
         <td>${row.nilai}</td>
         <td>${row.feedback}</td>
+        <td>${formatTimestamp(row.waktuSubmit)}</td>
       `;
       tableBody.appendChild(tr);
     });
@@ -70,14 +79,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // Event listener pada tombol tugas
   tugasButtons.forEach(btn => {
     btn.addEventListener('click', function() {
-      // Hapus kelas aktif pada semua tombol, lalu tambahkan pada tombol yang diklik
       tugasButtons.forEach(b => b.classList.remove('active'));
       this.classList.add('active');
-      // Ambil nilai sheet dari data attribute
       const sheetName = this.getAttribute('data-sheet');
       fetchData(sheetName);
-      // Kosongkan input pencarian agar data baru tampil utuh
-      if(searchInput) searchInput.value = '';
+      if (searchInput) searchInput.value = '';
     });
   });
   
@@ -88,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
       let filteredData = feedbackData.filter(item =>
         item.namaInitial.toLowerCase().includes(keyword)
       );
-      // Urutkan agar kecocokan dari awal muncul terlebih dahulu
       filteredData.sort((a, b) => {
         let indexA = a.namaInitial.toLowerCase().indexOf(keyword);
         let indexB = b.namaInitial.toLowerCase().indexOf(keyword);
@@ -98,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Efek interaktif tambahan: ubah background header berdasarkan posisi mouse
+  // Efek interaktif tambahan: mengubah background header berdasarkan posisi mouse
   const header = document.querySelector('header');
   if (header) {
     document.addEventListener('mousemove', e => {
