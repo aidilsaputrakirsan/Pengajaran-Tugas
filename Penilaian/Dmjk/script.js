@@ -37,18 +37,20 @@ document.addEventListener('DOMContentLoaded', function() {
       .finally(() => hideLoading());
   }
   
-  // Fungsi untuk memformat timestamp menjadi "Hari, jam:menit:detik"
+  // Fungsi untuk memformat timestamp menjadi "Hari, M/d/yyyy hh:mm:ss"
   function formatTimestamp(timestamp) {
     if (!timestamp) return "";
     const date = new Date(timestamp);
-    // Daftar nama hari dalam bahasa Indonesia (index 0 = Minggu)
+    // Nama hari dalam bahasa Indonesia (index 0 = Minggu)
     const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
     const dayName = days[date.getDay()];
-    // Mengambil jam, menit, detik
-    const hours = date.getHours(); // tidak dipad dengan nol jika <10, sesuai contoh
+    const month = date.getMonth() + 1; // getMonth() mulai dari 0
+    const day = date.getDate();
+    const year = date.getFullYear();
+    const hours = date.getHours(); // Format 24 jam, tidak dipadkan nol jika <10
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const seconds = date.getSeconds().toString().padStart(2, '0');
-    return `${dayName}, ${hours}:${minutes}:${seconds}`;
+    return `${dayName}, ${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
   }
   
   // Fungsi untuk merender tabel
