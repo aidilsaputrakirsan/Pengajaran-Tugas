@@ -1,6 +1,6 @@
 (function(){
     const ProwebNamespace = {
-      webAppUrl: 'https://script.google.com/macros/s/AKfycby4VZG7C6nYCGO5LJhW8F3Jf8Gi2dqY5kgZoIFwovmldY8pMbviShlEHB6tHdeksMHe/exec'
+      webAppUrl: 'https://script.google.com/macros/s/AKfycbyXbCNplP2jA27dyfCdolyMDoreV6cAEVxkRwdJYiQ7uN1WLOsZD1NnYqesvjhJYkar/exec'
     };
   
     // Ambil nilai tugas dari atribut data di tag <html>
