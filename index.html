@@ -3,116 +3,618 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="../../Pengumpulan/icon.png" type="image/png">
+  <link rel="icon" href="icon.png" type="image/png">
   <title>Menu Utama</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <style>
-    /* Reset dan dasar */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #4cc9f0;
+      --background: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --disabled: #64748b;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+    
     body {
-      background-color: #121212;
-      color: #E0E0E0;
+      background-color: var(--background);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(76, 201, 240, 0.1) 0%, transparent 20%);
+      color: var(--text);
       font-family: 'Poppins', sans-serif;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      overflow-x: hidden;
+      position: relative;
     }
-    .menu-container {
-      text-align: center;
-    }
-    .menu-container ul {
-      list-style: none;
-      display: inline-block;
-    }
-    .menu-container ul li {
-      margin: 10px;
-      display: inline-block;
-      /* Animasi fade-in */
-      opacity: 0;
-      transform: translateY(-10px);
-      animation: fadeIn 0.5s forwards;
-    }
-    /* Penundaan animasi tiap item */
-    .menu-container ul li:nth-child(1) { animation-delay: 0.2s; }
-    .menu-container ul li:nth-child(2) { animation-delay: 0.4s; }
-    .menu-container ul li:nth-child(3) { animation-delay: 0.6s; }
-    .menu-container ul li:nth-child(4) { animation-delay: 0.8s; }
     
-    @keyframes fadeIn {
-      to {
+    /* Particle background effect */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+      animation: float 15s infinite linear;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
         opacity: 1;
-        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
       }
     }
     
-    .menu-container ul li a {
-      text-decoration: none;
-      font-size: 24px;
-      padding: 10px 20px;
-      color: #E0E0E0;
-      transition: all 0.3s ease;
-      border-radius: 5px;
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 0 1rem;
+    }
+    
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
       display: inline-block;
     }
-    .menu-container ul li a:hover {
-      color: #00bcd4;
-      box-shadow: 0 0 10px #00bcd4;
-      transform: scale(1.05);
+    
+    .header h1::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 4px;
+      bottom: -8px;
+      left: 20%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 4px;
     }
-    .menu-container ul li a:active {
-      transform: scale(0.95);
+    
+    .header p {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 1.5rem auto 0;
     }
-    .menu-container ul li a.active {
-      color: #00bcd4;
-      border-bottom: 2px solid #00bcd4;
+    
+    .menu-container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1rem;
     }
-    .menu-container ul li a.disabled {
-      color: rgba(224, 224, 224, 0.5);
+    
+    .menu-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+    }
+    
+    .menu-item {
+      position: relative;
+      background-color: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .menu-item:not(.disabled):hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .menu-item.active {
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 20px rgba(67, 97, 238, 0.3);
+    }
+    
+    .menu-item a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      height: 100%;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    
+    .menu-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      transition: all 0.3s ease;
+    }
+    
+    .menu-item:hover .menu-icon {
+      color: var(--accent);
+      transform: scale(1.2);
+    }
+    
+    .menu-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .menu-desc {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-top: 0.5rem;
+    }
+    
+    .status-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    
+    .badge-active {
+      background-color: var(--success);
+      color: white;
+    }
+    
+    .badge-soon {
+      background-color: var(--warning);
+      color: black;
+    }
+    
+    .menu-item.disabled {
+      opacity: 0.7;
+      filter: grayscale(0.8);
+      cursor: default;
+    }
+    
+    .menu-item.disabled .menu-icon {
+      color: var(--disabled);
+    }
+    
+    .menu-item.disabled a {
       cursor: default;
       pointer-events: none;
     }
     
-    /* Responsif untuk perangkat mobile */
-    @media (max-width: 600px) {
-      .menu-container ul {
-        display: block;
-        width: 90%;
+    /* Menu item backgrounds */
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(67, 97, 238, 0.2) 0%, rgba(58, 12, 163, 0.2) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    .menu-item:hover::before {
+      opacity: 1;
+    }
+    
+    /* Hover effect */
+    .shine-effect {
+      position: absolute;
+      width: 50px;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transform: skewX(-20deg);
+      top: 0;
+      left: -50%;
+      transition: all 0.5s ease;
+      opacity: 0;
+    }
+    
+    .menu-item:hover .shine-effect {
+      left: 150%;
+      opacity: 0.5;
+    }
+    
+    /* Animation classes */
+    .animate__animated {
+      --animate-delay: 0.1s;
+    }
+    
+    .delay-1 { --animate-delay: 0.1s; }
+    .delay-2 { --animate-delay: 0.2s; }
+    .delay-3 { --animate-delay: 0.3s; }
+    .delay-4 { --animate-delay: 0.4s; }
+    
+    /* Dark/Light mode switch */
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--card);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+    
+    .theme-toggle i {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+    
+    /* Media queries */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .header p {
+        font-size: 0.95rem;
+      }
+      
+      .menu-wrapper {
+        grid-template-columns: 1fr;
+        max-width: 400px;
         margin: 0 auto;
       }
-      .menu-container ul li {
-        display: block;
-        margin: 10px 0;
+      
+      .theme-toggle {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
       }
-      .menu-container ul li a {
-        font-size: 20px;
-        padding: 15px;
+      
+      .theme-toggle i {
+        font-size: 1.2rem;
+      }
+    }
+    
+    /* Light mode styles */
+    body.light-mode {
+      --background: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --disabled: #94a3b8;
+    }
+    
+    body.light-mode .menu-item {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    body.light-mode .header h1 {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    
+    body.light-mode .header p {
+      color: #475569;
+    }
+    
+    body.light-mode .menu-desc {
+      color: #475569;
+    }
+    
+    /* Loading screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--background);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .loader {
+      width: 80px;
+      height: 80px;
+      position: relative;
+    }
+    
+    .loader:before, .loader:after {
+      content: '';
+      border-radius: 50%;
+      position: absolute;
+      inset: 0;
+      box-shadow: 0 0 10px 2px rgba(67, 97, 238, 0.3);
+    }
+    
+    .loader:before {
+      background: linear-gradient(to right, var(--primary) 0%, var(--accent) 100%);
+      animation: spin 2s linear infinite;
+    }
+    
+    .loader:after {
+      background: var(--background);
+      margin: 15%;
+      animation: spin 4s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Back button */
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: var(--card);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    
+    .back-button:hover {
+      transform: scale(1.1);
+    }
+    
+    .back-button i {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+    
+    @media (max-width: 768px) {
+      .back-button {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+      }
+      
+      .back-button i {
+        font-size: 1.2rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="menu-container">
-    <ul>
-      <!-- Link menuju folder Pengumpulan/index.html -->
-      <li><a href="Pengumpulan/index.html" class="menu-item active" onclick="setActive(this)">PENGUMPULAN</a></li>
-      <!-- Link menuju folder Penilaian/index.html -->
-      <li><a href="Penilaian/index.html" class="menu-item" onclick="setActive(this)">PENILAIAN</a></li>
-      <!-- Placeholder untuk menu mendatang -->
-      <li><a href="#" class="disabled" title="Coming Soon">LAPORAN TUGAS (Coming Soon)</a></li>
-      <li><a href="#" class="disabled" title="Coming Soon">DASHBOARD REKAPITULASI (Coming Soon)</a></li>
-    </ul>
+  <!-- Loading Screen -->
+  <div class="loading-screen">
+    <div class="loader"></div>
   </div>
-
+  
+  <!-- Particle Background -->
+  <div class="particles" id="particles"></div>
+  
+  <!-- Theme Toggle -->
+  <div class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </div>
+  
+  <!-- Back Button -->
+  <a href="#" class="back-button" id="backButton" style="display: none;">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+  
+  <!-- Header -->
+  <div class="header animate__animated animate__fadeInDown">
+    <h1>Dashboard Manajemen</h1>
+    <p>Selamat datang di sistem manajemen terpadu. Silakan pilih menu yang tersedia untuk melanjutkan.</p>
+  </div>
+  
+  <!-- Menu Container -->
+  <div class="menu-container">
+    <div class="menu-wrapper">
+      <!-- PENGUMPULAN -->
+      <div class="menu-item active animate__animated animate__fadeInUp delay-1" id="pengumpulan">
+        <div class="status-badge badge-active">Aktif</div>
+        <div class="shine-effect"></div>
+        <a href="Pengumpulan/index.html" class="menu-link">
+          <div class="menu-icon">
+            <i class="fas fa-file-upload"></i>
+          </div>
+          <div class="menu-title">Pengumpulan</div>
+          <div class="menu-desc">Sistem pengumpulan dan manajemen tugas</div>
+        </a>
+      </div>
+      
+      <!-- PENILAIAN -->
+      <div class="menu-item animate__animated animate__fadeInUp delay-2" id="penilaian">
+        <div class="shine-effect"></div>
+        <a href="Penilaian/index.html" class="menu-link">
+          <div class="menu-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="menu-title">Penilaian</div>
+          <div class="menu-desc">Penilaian tugas dan feedback</div>
+        </a>
+      </div>
+      
+      <!-- LAPORAN TUGAS -->
+      <div class="menu-item disabled animate__animated animate__fadeInUp delay-3" id="laporan">
+        <div class="status-badge badge-soon">Soon</div>
+        <div class="shine-effect"></div>
+        <a href="#" class="menu-link">
+          <div class="menu-icon">
+            <i class="fas fa-clipboard-list"></i>
+          </div>
+          <div class="menu-title">Laporan Tugas</div>
+          <div class="menu-desc">Laporan dan analisis tugas</div>
+        </a>
+      </div>
+      
+      <!-- DASHBOARD REKAPITULASI -->
+      <div class="menu-item disabled animate__animated animate__fadeInUp delay-4" id="dashboard">
+        <div class="status-badge badge-soon">Soon</div>
+        <div class="shine-effect"></div>
+        <a href="#" class="menu-link">
+          <div class="menu-icon">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <div class="menu-title">Dashboard</div>
+          <div class="menu-desc">Visualisasi dan rekapitulasi data</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  
   <script>
-    // Fungsi untuk mengatur active state pada menu
-    function setActive(element) {
-      const menuItems = document.querySelectorAll('.menu-item');
-      menuItems.forEach(item => item.classList.remove('active'));
-      element.classList.add('active');
+    // Loading screen
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        document.querySelector('.loading-screen').classList.add('hidden');
+      }, 1500);
+    });
+    
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('i');
+    
+    themeToggle.addEventListener('click', function() {
+      document.body.classList.toggle('light-mode');
+      
+      if (document.body.classList.contains('light-mode')) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      }
+    });
+    
+    // Menu item click handler
+    const menuItems = document.querySelectorAll('.menu-item:not(.disabled)');
+    
+    menuItems.forEach(item => {
+      item.addEventListener('click', function(e) {
+        // Remove active class from all menu items
+        menuItems.forEach(i => i.classList.remove('active'));
+        
+        // Add active class to clicked item
+        this.classList.add('active');
+      });
+    });
+    
+    // Create particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = window.innerWidth < 768 ? 15 : 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size
+        const size = Math.random() * 7 + 3;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration
+        const duration = Math.random() * 20 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Random delay
+        const delay = Math.random() * 5;
+        particle.style.animationDelay = `${delay}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    createParticles();
+    
+    // Recreate particles on window resize
+    window.addEventListener('resize', function() {
+      const particlesContainer = document.getElementById('particles');
+      particlesContainer.innerHTML = '';
+      createParticles();
+    });
+    
+    // Menu hover effects
+    menuItems.forEach(item => {
+      item.addEventListener('mouseenter', function() {
+        this.classList.add('animate__pulse');
+      });
+      
+      item.addEventListener('mouseleave', function() {
+        this.classList.remove('animate__pulse');
+      });
+    });
+    
+    // Back button functionality
+    const backButton = document.getElementById('backButton');
+    
+    // Check if we're not on the main page
+    if (window.location.pathname.includes('/Pengumpulan/') || 
+        window.location.pathname.includes('/Penilaian/')) {
+      backButton.style.display = 'flex';
+      backButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = '../index.html';
+      });
     }
   </script>
 </body>
