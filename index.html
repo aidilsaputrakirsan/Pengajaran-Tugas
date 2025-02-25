@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../../Pengumpulan/icon.png" type="image/png">
   <title>Menu Utama</title>
   <style>
     /* Reset dan dasar */
@@ -55,10 +56,15 @@
       color: #E0E0E0;
       transition: all 0.3s ease;
       border-radius: 5px;
+      display: inline-block;
     }
     .menu-container ul li a:hover {
       color: #00bcd4;
       box-shadow: 0 0 10px #00bcd4;
+      transform: scale(1.05);
+    }
+    .menu-container ul li a:active {
+      transform: scale(0.95);
     }
     .menu-container ul li a.active {
       color: #00bcd4;
@@ -68,6 +74,23 @@
       color: rgba(224, 224, 224, 0.5);
       cursor: default;
       pointer-events: none;
+    }
+    
+    /* Responsif untuk perangkat mobile */
+    @media (max-width: 600px) {
+      .menu-container ul {
+        display: block;
+        width: 90%;
+        margin: 0 auto;
+      }
+      .menu-container ul li {
+        display: block;
+        margin: 10px 0;
+      }
+      .menu-container ul li a {
+        font-size: 20px;
+        padding: 15px;
+      }
     }
   </style>
 </head>
@@ -79,8 +102,8 @@
       <!-- Link menuju folder Penilaian/index.html -->
       <li><a href="Penilaian/index.html" class="menu-item" onclick="setActive(this)">PENILAIAN</a></li>
       <!-- Placeholder untuk menu mendatang -->
-      <li><a href="#" class="disabled" title="Coming Soon">MENU 3 (Coming Soon)</a></li>
-      <li><a href="#" class="disabled" title="Coming Soon">MENU 4 (Coming Soon)</a></li>
+      <li><a href="#" class="disabled" title="Coming Soon">LAPORAN TUGAS (Coming Soon)</a></li>
+      <li><a href="#" class="disabled" title="Coming Soon">DASHBOARD REKAPITULASI (Coming Soon)</a></li>
     </ul>
   </div>
 
