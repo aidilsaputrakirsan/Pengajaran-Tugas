@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu Utama</title>
+  <style>
+    /* Reset dan dasar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #121212;
+      color: #E0E0E0;
+      overflow-x: hidden;
+    }
+    /* Navbar tetap di atas */
+    .navbar {
+      display: flex;
+      justify-content: center;
+      background-color: #1e1e1e;
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    .navbar ul {
+      list-style: none;
+      display: flex;
+    }
+    .navbar ul li {
+      margin: 0 15px;
+      position: relative;
+      /* Animasi fade-in untuk tiap item */
+      opacity: 0;
+      transform: translateY(-10px);
+      animation: fadeIn 0.5s forwards;
+    }
+    /* Penundaan animasi untuk setiap item */
+    .navbar ul li:nth-child(1) { animation-delay: 0.2s; }
+    .navbar ul li:nth-child(2) { animation-delay: 0.4s; }
+    .navbar ul li:nth-child(3) { animation-delay: 0.6s; }
+    .navbar ul li:nth-child(4) { animation-delay: 0.8s; }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      font-size: 18px;
+      padding: 10px 20px;
+      color: #e0e0e0;
+      transition: all 0.3s ease;
+      border-radius: 5px;
+    }
+    .navbar ul li a:hover {
+      color: #00bcd4;
+      box-shadow: 0 0 10px #00bcd4;
+    }
+    .navbar ul li a.active {
+      color: #00bcd4;
+      border-bottom: 2px solid #00bcd4;
+    }
+    /* Style untuk menu yang belum aktif */
+    .navbar ul li a.disabled {
+      color: rgba(224, 224, 224, 0.5);
+      cursor: default;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <ul>
+      <!-- Link menuju folder Pengumpulan/index.html -->
+      <li><a href="Pengumpulan/index.html" class="menu-item active" onclick="setActive(this)">PENGUMPULAN</a></li>
+      <!-- Link menuju folder Penilaian/index.html -->
+      <li><a href="Penilaian/index.html" class="menu-item" onclick="setActive(this)">PENILAIAN</a></li>
+      <!-- Placeholder untuk menu mendatang -->
+      <li><a href="#" class="disabled" title="Coming Soon">MENU 3 (Coming Soon)</a></li>
+      <li><a href="#" class="disabled" title="Coming Soon">MENU 4 (Coming Soon)</a></li>
+    </ul>
+  </nav>
+
+  <script>
+    // Fungsi untuk mengatur active state pada menu
+    function setActive(element) {
+      const menuItems = document.querySelectorAll('.menu-item');
+      menuItems.forEach(item => item.classList.remove('active'));
+      element.classList.add('active');
+    }
+  </script>
+</body>
+</html>
