@@ -1,0 +1,182 @@
+/* Reset dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variabel tema dark */
+:root {
+  --bg-color: #121212;
+  --header-bg: linear-gradient(135deg, #1e1e1e, #323232);
+  --card-bg: #1e1e1e;
+  --text-color: #e0e0e0;
+  --accent-color: #4CAF50;
+  --hover-bg: #2a2a2a;
+  --border-color: #333;
+  --btn-bg: #1e1e1e;
+  --btn-hover: #333;
+}
+
+/* Body dan font */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  background: var(--header-bg);
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  animation: fadeIn 1s ease-in-out;
+}
+header h1 {
+  font-size: 2em;
+  color: var(--text-color);
+}
+
+/* Main konten */
+main {
+  padding: 20px;
+}
+
+/* Container tombol tugas */
+.btn-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.tugas-btn {
+  background-color: var(--btn-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 0.9em;
+}
+.tugas-btn:hover {
+  background-color: var(--btn-hover);
+  transform: scale(1.05);
+}
+.tugas-btn:active {
+  transform: scale(0.98);
+}
+
+/* Kelas untuk tombol aktif agar tampil berbeda secara persisten */
+.tugas-btn.active {
+  background-color: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color);
+}
+
+/* Container pencarian */
+.search-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.search-container input {
+  width: 80%;
+  max-width: 400px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  font-size: 1em;
+  transition: all 0.3s ease;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+.search-container input:focus {
+  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+/* Tabel responsif */
+.table-container {
+  overflow-x: auto;
+  position: relative; /* Untuk overlay loading */
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  margin: 0 auto;
+  animation: slideUp 0.5s ease-in-out;
+}
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+th {
+  background-color: var(--border-color);
+  color: #fff;
+}
+tr:hover {
+  background-color: var(--hover-bg);
+  transition: background-color 0.3s ease;
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(18, 18, 18, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.spinner {
+  border: 4px solid rgba(255,255,255,0.2);
+  border-top: 4px solid var(--accent-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: var(--card-bg);
+  color: #888;
+  font-size: 0.9em;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Animasi */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsif */
+@media (max-width: 600px) {
+  .tugas-btn {
+    font-size: 0.8em;
+    padding: 8px 12px;
+  }
+  .search-container input {
+    width: 90%;
+  }
+}
