@@ -1,5 +1,5 @@
 // Konfigurasi
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjXYXgtJU4Q9yr2QhfBhrU0YHsjQw1pAVtmS8GjPTyFCx2b9_1QD_V84f8HcGEj4h9vA/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz9hBJ56ddautD5IUd4YI9LDzcNVdV_l_syLk7G20TmloDHYuGMtQCiStikHIUXakk73g/exec';
 
 // Wait for DOM to fully load
 document.addEventListener('DOMContentLoaded', function() {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initModal();
 });
 
-// Theme toggle functionality
+// Theme toggle functionality - Dark mode default
 function initThemeToggle() {
     const body = document.body;
     const themeToggle = document.querySelector('.theme-toggle');
@@ -33,7 +33,7 @@ function initThemeToggle() {
     const moonIcon = document.querySelector('.fa-moon');
     const themeLabel = document.querySelector('.theme-label');
     
-    // Check for saved theme preference
+    // Check for saved theme preference, but default to dark mode if not set
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
         body.classList.remove('dark-mode');
@@ -41,6 +41,14 @@ function initThemeToggle() {
         moonIcon.classList.remove('active');
         sunIcon.classList.add('active');
         themeLabel.textContent = 'Mode Terang';
+    } else {
+        // Ensure dark mode is set as default
+        body.classList.add('dark-mode');
+        body.classList.remove('light-mode');
+        sunIcon.classList.remove('active');
+        moonIcon.classList.add('active');
+        themeLabel.textContent = 'Mode Gelap';
+        localStorage.setItem('theme', 'dark');
     }
     
     // Toggle theme on click
@@ -121,11 +129,17 @@ function initGitHubForm() {
 
 // Form validation
 function validateForm() {
+    const mataKuliah = document.getElementById('mata_kuliah');
     const kelompok = document.getElementById('kelompok');
     const anggota = document.getElementById('anggota');
     const githubLink = document.getElementById('github_link');
     
     // Simple validation
+    if (!mataKuliah.value) {
+        showError(mataKuliah, 'Silakan pilih mata kuliah');
+        return false;
+    }
+    
     if (!kelompok.value) {
         showError(kelompok, 'Silakan pilih kelompok');
         return false;
@@ -192,6 +206,7 @@ function clearErrors() {
 
 // Submit to Google Sheet
 function submitToGoogleSheet() {
+    const mataKuliah = document.getElementById('mata_kuliah').value;
     const kelompok = document.getElementById('kelompok').value;
     const anggota = document.getElementById('anggota').value;
     const githubLink = document.getElementById('github_link').value;
@@ -199,6 +214,7 @@ function submitToGoogleSheet() {
     
     // Data yang akan dikirim
     const data = {
+        mataKuliah,
         kelompok,
         anggota,
         githubLink,
