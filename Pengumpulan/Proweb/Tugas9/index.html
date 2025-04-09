@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id" data-tugas="Tugas9">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Tugas 9 - Pemrograman Web</title>
+    <link rel="icon" href="../../icon.png" type="image/png">
+    <link rel="stylesheet" href="../assetstugas/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-button">← Kembali</a>
+        <div class="form-card">
+            <div class="form-header">
+                <h1>Upload Tugas 9 - Pemrograman Web</h1>
+            </div>
+            <div class="form-content">
+                <form id="uploadForm">
+                    <div class="form-group">
+                        <label for="name">Nama Lengkap</label>
+                        <input type="text" id="name" class="form-control" required placeholder="Masukkan nama lengkap">
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="nim">NIM</label>
+                        <input type="text" id="nim" class="form-control" required placeholder="Masukkan NIM">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" required placeholder="Masukkan email">
+                    </div>
+                    <div class="form-group">
+                        <div class="file-input-wrapper">
+                            <label for="file" class="file-input-trigger" id="fileLabel">
+                                Klik untuk memilih file Markdown (Maks. 5MB)
+                            </label>
+                            <input type="file" id="file" accept=".md" required>
+                        </div>
+                        <div class="file-info" id="fileInfo">Ukuran file: 0 MB</div>
+                    </div>
+                    <div class="form-group">
+                        <p class="keterangan">
+                            <strong>Keterangan:</strong> File yang diunggah harus dalam format Markdown dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.md"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas9.md"</em>
+                        </p>
+                    </div>
+                    <button type="submit" class="submit-button" id="uploadButton">
+                        Upload Tugas
+                        <div class="loading-spinner" id="spinner"></div>
+                    </button>
+                </form>
+                <div id="status"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../assetstugas/script.js"></script>
+</body>
+</html>
