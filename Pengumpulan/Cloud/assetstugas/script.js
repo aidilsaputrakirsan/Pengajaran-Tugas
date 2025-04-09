@@ -1,6 +1,6 @@
 (function(){
   const ProwebNamespace = {
-    webAppUrl: 'https://script.google.com/macros/s/AKfycbyrzheYopmBIIks3g3OOfyI_IeP5gVPqncwth0AIlCce4ajyTgMk1wXJ884k7DqKdvy/exec'
+    webAppUrl: 'https://script.google.com/macros/s/AKfycbzrckRq5QJQRV8umws_kMp2epdYXdvim7B3ooLMA0abNJCuKbiGNL0K3WGleUoAzUAS/exec'
   };
 
   // Ambil nilai tugas dari atribut data di tag <html>
@@ -41,7 +41,7 @@
     const status = document.getElementById('status');
 
     // Validasi tipe file dan ukuran (maks 5MB)
-    if (!file || file.type !== "text/markdown") {
+    if (!file || !file.name.toLowerCase().endsWith('.md')) {
       showStatus('Hanya file Markdown (.md) yang diperbolehkan.', 'error');
       return;
     }
@@ -75,7 +75,7 @@
             email: email,
             file: base64File,
             filename: file.name,
-            mimeType: 'text/markdown',
+            mimeType: file.type || 'text/plain',
             tugas: tugas
           })
         });
