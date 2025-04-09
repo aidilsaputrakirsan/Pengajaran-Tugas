@@ -100,28 +100,36 @@ main {
 
 /* Tabel responsif */
 .table-container {
-  overflow-x: auto;
+  overflow-x: auto; /* Scroll horizontal kalau tabel lelet */
   position: relative; /* Untuk overlay loading */
 }
 table {
-  width: 100%;
-  border-collapse: collapse;
+  width: 100%; /* Pastikan tabel penuh lebar */
+  border-collapse: collapse; /* Hilangkan jarak antar sel */
   background: var(--card-bg);
   margin: 0 auto;
   animation: slideUp 0.5s ease-in-out;
+  font-size: 0.9em; /* Ukuran font agak kecil biar pas */
 }
 th, td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid var(--border-color);
+  padding: 12px 15px; /* Jarak dalam sel biar rapi */
+  text-align: left; /* Teks rata kiri biar seragam */
+  border-bottom: 1px solid #ddd; /* Garis bawah tiap baris */
+  vertical-align: top; /* Teks mulai dari atas */
 }
-th {
-  background-color: var(--border-color);
-  color: #fff;
-}
-tr:hover {
-  background-color: var(--hover-bg);
-  transition: background-color 0.3s ease;
+
+/* Lebar tiap kolom */
+th:nth-child(1), td:nth-child(1) { width: 15%; } /* Kolom 1: Nama */
+th:nth-child(2), td:nth-child(2) { width: 10%; } /* Kolom 2: Tugas */
+th:nth-child(3), td:nth-child(3) { width: 10%; } /* Kolom 3: Nilai */
+th:nth-child(4), td:nth-child(4) { width: 40%; } /* Kolom 4: Feedback */
+th:nth-child(5), td:nth-child(5) { width: 25%; } /* Kolom 5: Waktu */
+
+td:nth-child(4) {
+  white-space: pre-wrap; /* Teks panjang dibungkus, spasi dipertahankan */
+  max-height: 100px; /* Batasi tinggi */
+  overflow-y: auto; /* Tambah scroll kalau kepanjangan */
+  word-wrap: break-word; /* Pastikan kata terpotong rapi */
 }
 
 /* Loading overlay */
