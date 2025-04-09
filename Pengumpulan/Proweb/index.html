@@ -6,135 +6,340 @@
     <title>Pemrograman Web - Daftar Tugas</title>
     <link rel="icon" href="../icon.png" type="image/png">
     <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
 </head>
-<body>
+<body class="dark-mode">
+    <div class="theme-toggle">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon active"></i>
+    </div>
+
     <div class="container">
-        <a href="../index.html" class="back-button">← Kembali</a>
+        <nav class="top-nav">
+            <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> Kembali</a>
+            <div class="theme-label">Mode Gelap</div>
+        </nav>
+
         <div class="dashboard">
             <div class="header">
-                <h1>Pemrograman Web</h1>
+                <div class="header-content">
+                    <i class="fas fa-code header-icon"></i>
+                    <h1>Pemrograman Web</h1>
+                </div>
+                <p class="subtitle">Semester Genap 2024/2025</p>
             </div>
+
+            <div class="info-section">
+                <div class="info-card">
+                    <i class="fas fa-calendar-alt info-icon"></i>
+                    <div class="info-content">
+                        <h3>Jadwal Pengumpulan</h3>
+                        <p>Semua tugas harus dikumpulkan sebelum deadline yang telah ditentukan</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-code-branch info-icon"></i>
+                    <div class="info-content">
+                        <h3>Pengumpulan GitHub</h3>
+                        <p>Kumpulkan link GitHub setelah UTS melalui form yang disediakan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <h2>Daftar Tugas</h2>
+            </div>
+
             <div class="assignments-grid">
-                <!-- Tugas 1-15 -->
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas1/index.html">
+                <!-- Tugas 1-7 -->
+                <div class="assignment-card" data-aos="fade-up">
+                    <a href="Tugas1/index.html" class="card-link">
                         <div class="assignment-header">Tugas 1</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 21 Februari 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 21 Februari 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas2/index.html">
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="50">
+                    <a href="Tugas2/index.html" class="card-link">
                         <div class="assignment-header">Tugas 2</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 28 Februari 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 28 Februari 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas3/index.html">
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="100">
+                    <a href="Tugas3/index.html" class="card-link">
                         <div class="assignment-header">Tugas 3</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 1 Maret 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 1 Maret 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas4/index.html">
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="150">
+                    <a href="Tugas4/index.html" class="card-link">
                         <div class="assignment-header">Tugas 4</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 7 Maret 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 7 Maret 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas5/index.html">
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="200">
+                    <a href="Tugas5/index.html" class="card-link">
                         <div class="assignment-header">Tugas 5</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 12 Maret 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 12 Maret 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas6/index.html">
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="250">
+                    <a href="Tugas6/index.html" class="card-link">
                         <div class="assignment-header">Tugas 6</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 14 Maret 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 14 Maret 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas7/index.html">
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="300">
+                    <a href="Tugas7/index.html" class="card-link">
                         <div class="assignment-header">Tugas 7</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 21 Maret 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 21 Maret 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <!-- Tambahkan assignment-card lainnya seperti di kode asli -->
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="TugasUTS/index.html">
+
+                <!-- UTS with special styling -->
+                <div class="assignment-card special-card uts-card" data-aos="fade-up" data-aos-delay="350">
+                    <a href="TugasUTS/index.html" class="card-link">
                         <div class="assignment-header">UTS</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 27 Maret 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 27 Maret 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Ujian</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas9/index.html">
+
+                <!-- GitHub submission form -->
+                <div class="github-form-container" data-aos="fade-up" data-aos-delay="400">
+                    <div class="github-form-header">
+                        <i class="fab fa-github"></i>
+                        <h3>Pengumpulan Link GitHub</h3>
+                    </div>
+                    <form id="githubForm" class="github-form">
+                        <div class="form-group">
+                            <label for="mata_kuliah">Mata Kuliah</label>
+                            <select id="mata_kuliah" name="mata_kuliah" required>
+                                <option value="" disabled>Pilih Mata Kuliah</option>
+                                <option value="Pemrograman Web" selected>Pemrograman Web</option>
+                                <option value="Komputasi Awan">Komputasi Awan</option>
+                                <option value="Desain dan Manajemen Jaringan Komputer">Desain dan Manajemen Jaringan Komputer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="kelompok">Kelompok</label>
+                            <select id="kelompok" name="kelompok" required>
+                                <option value="" disabled selected>Pilih Kelompok</option>
+                                <option value="1">Kelompok 1</option>
+                                <option value="2">Kelompok 2</option>
+                                <option value="3">Kelompok 3</option>
+                                <option value="4">Kelompok 4</option>
+                                <option value="5">Kelompok 5</option>
+                                <option value="6">Kelompok 6</option>
+                                <option value="7">Kelompok 7</option>
+                                <option value="8">Kelompok 8</option>
+                                <option value="9">Kelompok 9</option>
+                                <option value="10">Kelompok 10</option>
+                                <option value="11">Kelompok 11</option>
+                                <option value="12">Kelompok 12</option>
+                                <option value="13">Kelompok 13</option>
+                                <option value="14">Kelompok 14</option>
+                                <option value="15">Kelompok 15</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="anggota">Anggota Kelompok</label>
+                            <textarea id="anggota" name="anggota" placeholder="Nama - NIM (satu per baris)" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="github_link">Link GitHub</label>
+                            <input type="url" id="github_link" name="github_link" placeholder="https://github.com/username/repository" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="keterangan">Keterangan (opsional)</label>
+                            <textarea id="keterangan" name="keterangan" placeholder="Tambahkan keterangan jika diperlukan"></textarea>
+                        </div>
+                        <div class="submit-btn-container">
+                            <button type="submit" class="submit-btn">
+                                <span>Kirim</span>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tugas 9-15 -->
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="450">
+                    <a href="Tugas9/index.html" class="card-link">
                         <div class="assignment-header">Tugas 9</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 4 April 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 4 April 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas10/index.html">
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="500">
+                    <a href="Tugas10/index.html" class="card-link">
                         <div class="assignment-header">Tugas 10</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 11 April 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 11 April 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas11/index.html">
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="550">
+                    <a href="Tugas11/index.html" class="card-link">
                         <div class="assignment-header">Tugas 11</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 18 April 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 18 April 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas12/index.html">
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="600">
+                    <a href="Tugas12/index.html" class="card-link">
                         <div class="assignment-header">Tugas 12</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 25 April 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 25 April 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas13/index.html">
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="650">
+                    <a href="Tugas13/index.html" class="card-link">
                         <div class="assignment-header">Tugas 13</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 2 Mei 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 2 Mei 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas14/index.html">
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="700">
+                    <a href="Tugas14/index.html" class="card-link">
                         <div class="assignment-header">Tugas 14</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 9 Mei 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 9 Mei 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="Tugas15/index.html">
+                <div class="assignment-card" data-aos="fade-up" data-aos-delay="750">
+                    <a href="Tugas15/index.html" class="card-link">
                         <div class="assignment-header">Tugas 15</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Deadline: 16 Mei 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 16 Mei 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Tugas</div>
+                        </div>
                     </a>
                 </div>
-                <div class="assignment-card" onclick="showLoader()">
-                    <a href="TugasUAS/index.html">
+
+                <!-- UAS with special styling -->
+                <div class="assignment-card special-card uas-card" data-aos="fade-up" data-aos-delay="800">
+                    <a href="TugasUAS/index.html" class="card-link">
                         <div class="assignment-header">UAS</div>
-                        <div class="assignment-status status-active">Aktif</div>
-                        <div class="assignment-deadline">Jadwal: 23 Mei 2025</div>
+                        <div class="assignment-details">
+                            <div class="assignment-status status-active">Aktif</div>
+                            <div class="assignment-deadline"><i class="far fa-clock"></i> 23 Mei 2025</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="view-btn">Lihat Ujian</div>
+                        </div>
                     </a>
                 </div>
             </div>
         </div>
+
+        <footer class="footer">
+            <p>&copy; 2025 Pemrograman Web - Dibuat dengan <i class="fas fa-heart"></i> untuk pembelajaran yang lebih baik</p>
+        </footer>
     </div>
 
-    <div class="loader" id="loader"></div>
+    <!-- Loader overlay -->
+    <div class="loader-overlay" id="loaderOverlay">
+        <div class="spinner">
+            <div class="spinner-inner"></div>
+        </div>
+        <p class="loading-text">Memuat...</p>
+    </div>
 
+    <!-- Notification modal -->
+    <div class="modal" id="notificationModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-icon success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="modal-title">Berhasil!</h3>
+            <p class="modal-message">Link GitHub telah berhasil disimpan.</p>
+            <button class="modal-button">OK</button>
+        </div>
+    </div>
+
+    <!-- AOS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="assets/script.js"></script>
 </body>
 </html>
