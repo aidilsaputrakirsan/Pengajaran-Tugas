@@ -5,60 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feedback Tugas - DMJK</title>
   <link rel="icon" href="../../Pengumpulan/icon.png" type="image/png">
+  <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="glass-decoration glass-decoration-1"></div>
+  <div class="glass-decoration glass-decoration-2"></div>
+  <div class="glass-decoration glass-decoration-3"></div>
+  
   <header>
-    <h1>Feedback Tugas</h1>
+    <div class="container">
+      <h1><a href="../index.html" class="back-link"><i class="fas fa-chevron-left"></i></a> Feedback Tugas <span class="text-accent">DMJK</span></h1>
+    </div>
   </header>
+  
   <main>
-    <!-- Container tombol pilihan tugas -->
-    <section class="btn-container">
-      <!-- Tombol untuk tugas-tugas -->
-      <button class="tugas-btn" data-sheet="tugas1">Tugas 1</button>
-      <button class="tugas-btn" data-sheet="tugas2">Tugas 2</button>
-      <button class="tugas-btn" data-sheet="tugas3">Tugas 3</button>
-      <button class="tugas-btn" data-sheet="tugas4">Tugas 4</button>
-      <button class="tugas-btn" data-sheet="tugas5">Tugas 5</button>
-      <button class="tugas-btn" data-sheet="tugas6">Tugas 6</button>
-      <button class="tugas-btn" data-sheet="tugas7">Tugas 7</button>
-      <button class="tugas-btn" data-sheet="uts">UTS</button>
-      <button class="tugas-btn" data-sheet="tugas9">Tugas 9</button>
-      <button class="tugas-btn" data-sheet="tugas10">Tugas 10</button>
-      <button class="tugas-btn" data-sheet="tugas11">Tugas 11</button>
-      <button class="tugas-btn" data-sheet="tugas12">Tugas 12</button>
-      <button class="tugas-btn" data-sheet="tugas13">Tugas 13</button>
-      <button class="tugas-btn" data-sheet="tugas14">Tugas 14</button>
-      <button class="tugas-btn" data-sheet="tugas15">Tugas 15</button>
-      <button class="tugas-btn" data-sheet="uas">UAS</button>
-    </section>
-
-    <!-- Pencarian berdasarkan Nama Initial -->
-    <section class="search-container">
-      <input type="text" id="searchInput" placeholder="Cari berdasarkan Nama Initial...">
-    </section>
-    
-    <!-- Tabel feedback -->
-    <section class="table-container">
-      <table id="feedbackTable">
-        <thead>
-          <tr>
-            <th>Nama Initial</th>
-            <th>Tugas ke</th>
-            <th>Nilai</th>
-            <th>Feedback</th>
-            <th>Waktu Kirim</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Data akan diisi secara dinamis oleh script.js -->
-        </tbody>
-      </table>
-    </section>
+    <div class="container">
+      <div class="controls-container">
+        <!-- View toggle buttons -->
+        <div class="view-toggle">
+          <button class="view-toggle-btn" data-view="card" title="Card View">
+            <i class="fas fa-th-large"></i>
+          </button>
+          <button class="view-toggle-btn active" data-view="table" title="Table View">
+            <i class="fas fa-table"></i>
+          </button>
+        </div>
+        
+        <!-- Pencarian berdasarkan Nama Initial -->
+        <div class="search-container">
+          <input type="text" id="searchInput" placeholder="Cari berdasarkan Nama Initial...">
+        </div>
+      </div>
+      
+      <!-- Container tombol pilihan tugas -->
+      <section class="btn-container">
+        <!-- Tombol untuk tugas-tugas -->
+        <button class="tugas-btn active" data-sheet="tugas1">Tugas 1</button>
+        <button class="tugas-btn" data-sheet="tugas2">Tugas 2</button>
+        <button class="tugas-btn" data-sheet="tugas3">Tugas 3</button>
+        <button class="tugas-btn" data-sheet="tugas4">Tugas 4</button>
+        <button class="tugas-btn" data-sheet="tugas5">Tugas 5</button>
+        <button class="tugas-btn" data-sheet="tugas6">Tugas 6</button>
+        <button class="tugas-btn" data-sheet="tugas7">Tugas 7</button>
+        <button class="tugas-btn" data-sheet="uts">UTS</button>
+        <button class="tugas-btn" data-sheet="tugas9">Tugas 9</button>
+        <button class="tugas-btn" data-sheet="tugas10">Tugas 10</button>
+        <button class="tugas-btn" data-sheet="tugas11">Tugas 11</button>
+        <button class="tugas-btn" data-sheet="tugas12">Tugas 12</button>
+        <button class="tugas-btn" data-sheet="tugas13">Tugas 13</button>
+        <button class="tugas-btn" data-sheet="tugas14">Tugas 14</button>
+        <button class="tugas-btn" data-sheet="tugas15">Tugas 15</button>
+        <button class="tugas-btn" data-sheet="uas">UAS</button>
+      </section>
+      
+      <div class="content-container">
+        <!-- Card View (initially hidden) -->
+        <section class="card-container" style="display: none;">
+          <!-- Cards will be dynamically generated by JS -->
+        </section>
+        
+        <!-- Table View (default) -->
+        <section class="table-container">
+          <table id="feedbackTable">
+            <thead>
+              <tr>
+                <th>Nama Initial</th>
+                <th>Tugas ke</th>
+                <th>Nilai</th>
+                <th>Feedback</th>
+                <th>Waktu Kirim</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data akan diisi secara dinamis oleh script.js -->
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
   </main>
+  
   <footer>
-    <p>&copy; 2025 Tugas DMJK</p>
+    <p>&copy; 2025 Tugas DMJK • <span class="text-accent">Aidil Saputra Kirsan</span></p>
   </footer>
+  
   <script src="script.js"></script>
 </body>
 </html>

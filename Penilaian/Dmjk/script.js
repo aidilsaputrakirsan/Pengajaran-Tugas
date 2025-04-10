@@ -8,78 +8,288 @@ document.addEventListener('DOMContentLoaded', function() {
  const tableContainer = document.querySelector('.table-container');
  const cardContainer = document.querySelector('.card-container');
  const viewToggleBtns = document.querySelectorAll('.view-toggle-btn');
- const glassElements = document.querySelectorAll('.glass-decoration');
  const header = document.querySelector('header');
+ const body = document.querySelector('body');
  
  // State
  let feedbackData = [];
  let currentView = 'table';
  let loadingTimeout;
+ let activeTask = 'tugas1';
  
- // Initialize active task button
- const firstButton = document.querySelector('.tugas-btn');
- if (firstButton) {
-   firstButton.classList.add('active');
+ // Inisialisasi
+ initializeUI();
+ 
+ // Fungsi untuk menginisialisasi UI
+ function initializeUI() {
+   // Tambahkan dekorasi visual
+   createParticles();
+   addGlassDecorations();
+   
+   // Aktifkan tombol tugas pertama
+   if (tugasButtons.length > 0) {
+     tugasButtons[0].classList.add('active');
+   }
+   
+   // Setup event listeners
+   setupEventListeners();
+   
+   // Ambil data default
+   fetchData(activeTask);
  }
  
- // View toggle functionality
- viewToggleBtns.forEach(btn => {
-   btn.addEventListener('click', function() {
-     const view = this.getAttribute('data-view');
+ // Membuat partikel latar belakang
+ function createParticles() {
+   const particleContainer = document.createElement('div');
+   particleContainer.className = 'particles';
+   body.appendChild(particleContainer);
+   
+   // Buat 20 partikel
+   for (let i = 0; i < 20; i++) {
+     createParticle(particleContainer);
+   }
+ }
+ 
+ // Membuat satu partikel dengan properti acak
+ function createParticle(container) {
+   const particle = document.createElement('div');
+   particle.className = 'particle';
+   
+   // Properti acak
+   const size = Math.random() * 5 + 2;
+   const posX = Math.random() * window.innerWidth;
+   const posY = Math.random() * window.innerHeight;
+   const duration = Math.random() * 20 + 10;
+   const delay = Math.random() * 5;
+   
+   // Setel properti CSS
+   particle.style.width = `${size}px`;
+   particle.style.height = `${size}px`;
+   particle.style.left = `${posX}px`;
+   particle.style.top = `${posY}px`;
+   particle.style.animationDuration = `${duration}s`;
+   particle.style.animationDelay = `${delay}s`;
+   
+   // Pilih warna acak
+   const colors = ['rgba(34, 197, 94, 0.2)', 'rgba(14, 165, 233, 0.2)', 'rgba(79, 70, 229, 0.2)'];
+   particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+   
+   // Tambahkan ke container
+   container.appendChild(particle);
+   
+   // Hapus dan buat ulang setelah durasi animasi
+   setTimeout(() => {
+     particle.remove();
+     createParticle(container);
+   }, (duration + delay) * 1000);
+ }
+ 
+ // Tambahkan elemen dekorasi glassmorphism
+ function addGlassDecorations() {
+   if (!document.querySelector('.glass-decoration-3')) {
+     const decoration = document.createElement('div');
+     decoration.className = 'glass-decoration glass-decoration-3';
+     body.appendChild(decoration);
+   }
+ }
+ 
+ // Setup event listeners
+ function setupEventListeners() {
+   // View toggle
+   viewToggleBtns.forEach(btn => {
+     btn.addEventListener('click', function() {
+       const view = this.getAttribute('data-view');
+       
+       // Update active state
+       viewToggleBtns.forEach(b => b.classList.remove('active'));
+       this.classList.add('active');
+       
+       // Tampilkan view yang dipilih
+       if (view === 'card') {
+         tableContainer.style.display = 'none';
+         cardContainer.style.display = 'grid';
+         currentView = 'card';
+       } else {
+         tableContainer.style.display = 'block';
+         cardContainer.style.display = 'none';
+         currentView = 'table';
+       }
+       
+       // Re-render data
+       renderData(feedbackData);
+       
+       // Tambahkan efek klik
+       addClickEffect(this);
+     });
+   });
+   
+   // Tugas buttons
+   tugasButtons.forEach(btn => {
+     btn.addEventListener('click', function() {
+       // Update active state
+       tugasButtons.forEach(b => b.classList.remove('active'));
+       this.classList.add('active');
+       
+       // Simpan status tugas aktif
+       activeTask = this.getAttribute('data-sheet');
+       
+       // Ambil data
+       fetchData(activeTask);
+       
+       // Reset pencarian
+       if (searchInput) searchInput.value = '';
+       
+       // Tambahkan efek klik
+       addClickEffect(this);
+     });
+   });
+   
+   // Search functionality
+   if (searchInput) {
+     let debounceTimeout;
      
-     // Update active state
-     viewToggleBtns.forEach(b => b.classList.remove('active'));
-     this.classList.add('active');
+     searchInput.addEventListener('input', function() {
+       clearTimeout(debounceTimeout);
+       
+       debounceTimeout = setTimeout(() => {
+         const keyword = this.value.toLowerCase().trim();
+         
+         // Filter data berdasarkan kata kunci
+         let filteredData = feedbackData.filter(item =>
+           item.namaInitial.toLowerCase().includes(keyword)
+         );
+         
+         // Urutkan berdasarkan kesesuaian
+         filteredData.sort((a, b) => {
+           const indexA = a.namaInitial.toLowerCase().indexOf(keyword);
+           const indexB = b.namaInitial.toLowerCase().indexOf(keyword);
+           return indexA - indexB;
+         });
+         
+         renderData(filteredData);
+       }, 300);
+     });
      
-     // Show/hide appropriate view
-     if (view === 'card') {
-       tableContainer.style.display = 'none';
-       cardContainer.style.display = 'grid';
-       currentView = 'card';
-     } else {
-       tableContainer.style.display = 'block';
-       cardContainer.style.display = 'none';
-       currentView = 'table';
+     // Keyboard shortcuts
+     document.addEventListener('keydown', e => {
+       if (e.key === '/' && document.activeElement !== searchInput) {
+         e.preventDefault();
+         searchInput.focus();
+       } else if (e.key === 'Escape') {
+         searchInput.value = '';
+         renderData(feedbackData);
+         searchInput.blur();
+       }
+     });
+     
+     // Tampilkan tip untuk keyboard shortcuts
+     setTimeout(() => {
+       showKeyboardShortcutTip();
+     }, 1500);
+   }
+   
+   // Interactive background
+   document.addEventListener('mousemove', e => {
+     const x = e.clientX / window.innerWidth;
+     const y = e.clientY / window.innerHeight;
+     
+     if (header) {
+       header.style.background = `linear-gradient(135deg, 
+         rgba(${22 + x * 30}, ${155 + y * 30}, ${94 + (x + y) * 15}, 0.9), 
+         rgba(${10 + y * 30}, ${17 + x * 50}, ${55 + (x + y) * 15}, 0.9))`;
      }
      
-     // Rerender with current data
-     renderData(feedbackData);
+     // Efek parallax pada dekorasi
+     const glassElements = document.querySelectorAll('.glass-decoration');
+     glassElements.forEach(element => {
+       const speedX = element.classList.contains('glass-decoration-1') ? -20 : (element.classList.contains('glass-decoration-2') ? 15 : 10);
+       const speedY = element.classList.contains('glass-decoration-1') ? -15 : (element.classList.contains('glass-decoration-2') ? 20 : -10);
+       element.style.transform = `translate(${x * speedX}px, ${y * speedY}px)`;
+     });
    });
- });
+ }
  
- // Enhanced loading functionality with timeout safeguard
+ // Tambahkan efek klik ripple
+ function addClickEffect(element) {
+   const ripple = document.createElement('span');
+   ripple.className = 'ripple';
+   
+   const rect = element.getBoundingClientRect();
+   const size = Math.max(rect.width, rect.height) * 2;
+   
+   ripple.style.width = ripple.style.height = `${size}px`;
+   ripple.style.left = `${size / 2}px`;
+   ripple.style.top = `${size / 2}px`;
+   
+   element.appendChild(ripple);
+   
+   setTimeout(() => {
+     ripple.remove();
+   }, 600);
+ }
+ 
+ // Tampilkan tips keyboard shortcuts
+ function showKeyboardShortcutTip() {
+   if (document.querySelector('.shortcut-tip')) return;
+   
+   const tip = document.createElement('div');
+   tip.className = 'shortcut-tip';
+   tip.innerHTML = `
+     <div>
+       <i class="fas fa-keyboard"></i> Shortcuts: 
+       <kbd>/</kbd> untuk pencarian, <kbd>Esc</kbd> untuk reset
+     </div>
+     <button class="tip-close"><i class="fas fa-times"></i></button>
+   `;
+   document.body.appendChild(tip);
+   
+   tip.querySelector('.tip-close').addEventListener('click', () => {
+     tip.classList.add('fade-out');
+     setTimeout(() => tip.remove(), 300);
+   });
+   
+   setTimeout(() => {
+     tip.classList.add('fade-out');
+     setTimeout(() => tip.remove(), 300);
+   }, 5000);
+ }
+ 
+ // Tampilkan loading spinner
  function showLoading() {
    if (!document.querySelector('.loading-overlay')) {
      const overlay = document.createElement('div');
-     overlay.classList.add('loading-overlay');
-     overlay.innerHTML = `
-       <div class="spinner"></div>
-     `;
+     overlay.className = 'loading-overlay';
+     overlay.innerHTML = `<div class="spinner"></div>`;
      
-     // Add to both containers
-     tableContainer.appendChild(overlay.cloneNode(true));
-     
-     if (cardContainer) {
+     // Tambahkan ke container yang aktif
+     if (currentView === 'card') {
        cardContainer.appendChild(overlay);
+     } else {
+       tableContainer.appendChild(overlay);
      }
      
-     // Set a timeout to automatically hide loading after 10 seconds
+     // Timeout keamanan
      loadingTimeout = setTimeout(() => {
        hideLoading();
-       showError('Waktu request habis. Silakan coba lagi.');
+       showError('Waktu permintaan habis. Silakan coba lagi.');
      }, 10000);
    }
  }
  
+ // Sembunyikan loading spinner
  function hideLoading() {
    clearTimeout(loadingTimeout);
    const overlays = document.querySelectorAll('.loading-overlay');
-   overlays.forEach(overlay => overlay.remove());
+   overlays.forEach(overlay => {
+     overlay.classList.add('fade-out');
+     setTimeout(() => overlay.remove(), 300);
+   });
  }
  
+ // Tampilkan pesan error
  function showError(message) {
    const errorEl = document.createElement('div');
-   errorEl.classList.add('error-message');
+   errorEl.className = 'error-message';
    errorEl.innerHTML = `
      <div class="error-icon"><i class="fas fa-exclamation-circle"></i></div>
      <p>${message}</p>
@@ -95,16 +305,17 @@ document.addEventListener('DOMContentLoaded', function() {
    
    // Manual close
    errorEl.querySelector('.error-close').addEventListener('click', () => {
-     errorEl.remove();
+     errorEl.classList.add('fade-out');
+     setTimeout(() => errorEl.remove(), 300);
    });
  }
  
- // Enhanced fetch with retry logic
+ // Ambil data dari API
  function fetchData(sheetName, retryCount = 0) {
    showLoading();
    const url = `${baseUrl}?sheet=${sheetName}`;
    
-   return fetch(url)
+   fetch(url)
      .then(response => {
        if (!response.ok) {
          throw new Error(`Server returned ${response.status}`);
@@ -122,12 +333,13 @@ document.addEventListener('DOMContentLoaded', function() {
          setTimeout(() => fetchData(sheetName, retryCount + 1), 1000);
        } else {
          showError('Gagal mengambil data. Silakan coba lagi nanti.');
+         renderData([]);
        }
      })
      .finally(() => hideLoading());
  }
  
- // Format timestamp with improved date formatting
+ // Format timestamp dengan format yang lebih baik
  function formatTimestamp(timestamp) {
    if (!timestamp) return "";
    
@@ -136,49 +348,48 @@ document.addEventListener('DOMContentLoaded', function() {
    // Check if date is valid
    if (isNaN(date.getTime())) return "Tanggal tidak valid";
    
-   // Nama hari dalam bahasa Indonesia
+   // Nama hari dan bulan dalam bahasa Indonesia
    const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
-   const dayName = days[date.getDay()];
-   
-   // Nama bulan dalam bahasa Indonesia
    const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-   const monthName = months[date.getMonth()];
    
+   const dayName = days[date.getDay()];
    const day = date.getDate();
+   const month = months[date.getMonth()];
    const year = date.getFullYear();
    
    // Format waktu
    const hours = date.getHours().toString().padStart(2, '0');
    const minutes = date.getMinutes().toString().padStart(2, '0');
    
-   // Format untuk tampilan card dan tabel
+   // Format berbeda untuk tampilan card dan tabel
    if (currentView === 'card') {
-     return `${day} ${monthName} ${year}, ${hours}:${minutes}`;
+     return `${day} ${month} ${year}, ${hours}:${minutes}`;
    } else {
-     return `${dayName}, ${day} ${monthName} ${year} ${hours}:${minutes}`;
+     return `${dayName}, ${day} ${month} ${year} ${hours}:${minutes}`;
    }
  }
  
- // Format nilai with color coding
+ // Format nilai with color coding - DIMODIFIKASI UNTUK HANYA MENAMPILKAN NILAI ANGKA
  function formatNilai(nilai) {
    let colorClass = '';
    
-   if (nilai >= 85) {
+   if (nilai >= 90) {
      colorClass = 'nilai-a';
-   } else if (nilai >= 75) {
+   } else if (nilai >= 80) {
      colorClass = 'nilai-b';
-   } else if (nilai >= 65) {
+   } else if (nilai >= 70) {
      colorClass = 'nilai-c';
-   } else if (nilai >= 50) {
+   } else if (nilai >= 60) {
      colorClass = 'nilai-d';
    } else {
      colorClass = 'nilai-e';
    }
    
+   // Hanya menampilkan nilai angka tanpa konversi ke huruf
    return `<span class="${colorClass}">${nilai}</span>`;
  }
  
- // Combined render function that supports both table and card views
+ // Render data based on current view
  function renderData(data) {
    // Clear existing content
    tableBody.innerHTML = '';
@@ -187,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
    }
    
    // Handle empty data
-   if (data.length === 0) {
+   if (!data || data.length === 0) {
      // Table view
      const tr = document.createElement('tr');
      tr.innerHTML = `
@@ -210,10 +421,14 @@ document.addEventListener('DOMContentLoaded', function() {
      return;
    }
    
+   // Add staggered animation delay
+   const animationDelay = 50; // ms between each item
+   
    // Render data based on current view
    data.forEach((row, index) => {
-     // Render for table view
+     // Table view
      const tr = document.createElement('tr');
+     tr.style.animationDelay = `${index * animationDelay}ms`;
      tr.innerHTML = `
        <td>${row.namaInitial}</td>
        <td>${row.tugasKe}</td>
@@ -221,14 +436,13 @@ document.addEventListener('DOMContentLoaded', function() {
        <td>${row.feedback}</td>
        <td>${formatTimestamp(row.waktuSubmit)}</td>
      `;
-     tr.style.animationDelay = `${index * 0.05}s`;
      tableBody.appendChild(tr);
      
-     // Render for card view if it exists
+     // Card view
      if (cardContainer && currentView === 'card') {
        const card = document.createElement('div');
        card.className = 'feedback-card';
-       card.style.animationDelay = `${index * 0.05}s`;
+       card.style.animationDelay = `${index * animationDelay}ms`;
        
        card.innerHTML = `
          <div class="card-header">
@@ -239,288 +453,105 @@ document.addEventListener('DOMContentLoaded', function() {
            <div class="card-feedback">${row.feedback}</div>
            <div class="card-meta">
              <div class="card-meta-item">
-               <span class="card-meta-icon"><i class="fas fa-calendar-alt"></i></span>
+               <i class="fas fa-calendar-alt"></i>
                <span>${formatTimestamp(row.waktuSubmit)}</span>
              </div>
              <div class="card-meta-item">
-               <span class="card-meta-icon"><i class="fas fa-star"></i></span>
+               <i class="fas fa-star"></i>
                <span>${formatNilai(row.nilai)}</span>
              </div>
            </div>
          </div>
        `;
        
-       // Add hover effect to show full feedback
-       const feedbackEl = card.querySelector('.card-feedback');
-       feedbackEl.addEventListener('mouseenter', () => {
-         if (feedbackEl.scrollHeight > feedbackEl.clientHeight) {
-           feedbackEl.style.maxHeight = `${feedbackEl.scrollHeight}px`;
-         }
-       });
-       
-       feedbackEl.addEventListener('mouseleave', () => {
-         feedbackEl.style.maxHeight = '150px';
-       });
-       
        cardContainer.appendChild(card);
      }
    });
-   
-   // Add CSS for nilai colors
-   if (!document.getElementById('nilai-styles')) {
-     const style = document.createElement('style');
-     style.id = 'nilai-styles';
-     style.textContent = `
-       .nilai-a { color: #4caf50; font-weight: bold; }
-       .nilai-b { color: #2196f3; font-weight: bold; }
-       .nilai-c { color: #ff9800; font-weight: bold; }
-       .nilai-d { color: #f44336; font-weight: bold; }
-       .nilai-e { color: #9c27b0; font-weight: bold; }
-       
-       tr { animation: fadeIn 0.5s ease-out forwards; opacity: 0; }
-       
-       .error-message {
-         position: fixed;
-         bottom: 20px;
-         right: 20px;
-         background: #f44336;
-         color: white;
-         padding: 15px;
-         border-radius: 4px;
-         display: flex;
-         align-items: center;
-         max-width: 400px;
-         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-         z-index: 1000;
-         animation: slideInRight 0.3s ease-out;
-       }
-       
-       .error-icon {
-         margin-right: 10px;
-         font-size: 24px;
-       }
-       
-       .error-close {
-         margin-left: 10px;
-         background: none;
-         border: none;
-         color: white;
-         cursor: pointer;
-       }
-       
-       .fade-out {
-         animation: fadeOut 0.5s forwards;
-       }
-       
-       @keyframes slideInRight {
-         from { transform: translateX(100%); opacity: 0; }
-         to { transform: translateX(0); opacity: 1; }
-       }
-       
-       @keyframes fadeOut {
-         to { opacity: 0; }
-       }
-     `;
-     document.head.appendChild(style);
-   }
  }
  
- // First data load
- fetchData('tugas1');
- 
- // Event listener for task buttons
- tugasButtons.forEach(btn => {
-   btn.addEventListener('click', function() {
-     // Update active state
-     tugasButtons.forEach(b => b.classList.remove('active'));
-     this.classList.add('active');
-     
-     // Fetch data for selected task
-     const sheetName = this.getAttribute('data-sheet');
-     fetchData(sheetName);
-     
-     // Clear search
-     if (searchInput) searchInput.value = '';
-     
-     // Add ripple effect
-     const ripple = document.createElement('span');
-     ripple.classList.add('ripple');
-     this.appendChild(ripple);
-     setTimeout(() => ripple.remove(), 600);
-   });
- });
- 
- // Enhanced search with debounce
- let searchTimeout;
- if (searchInput) {
-   searchInput.addEventListener('input', function() {
-     clearTimeout(searchTimeout);
-     searchTimeout = setTimeout(() => {
-       const keyword = this.value.toLowerCase().trim();
-       
-       // Skip search if keyword is empty
-       if (keyword === '') {
-         renderData(feedbackData);
-         return;
-       }
-       
-       // Filter and sort by relevance
-       let filteredData = feedbackData.filter(item =>
-         item.namaInitial.toLowerCase().includes(keyword)
-       );
-       
-       filteredData.sort((a, b) => {
-         // Sort by keyword position first
-         let indexA = a.namaInitial.toLowerCase().indexOf(keyword);
-         let indexB = b.namaInitial.toLowerCase().indexOf(keyword);
-         
-         if (indexA !== indexB) return indexA - indexB;
-         
-         // If keyword position is the same, sort by name
-         return a.namaInitial.localeCompare(b.namaInitial);
-       });
-       
-       renderData(filteredData);
-     }, 300); // 300ms debounce
-   });
- }
- 
- // Interactive background effects
- document.addEventListener('mousemove', e => {
-   if (header) {
-     // Calculate mouse position percentages
-     const x = e.clientX / window.innerWidth;
-     const y = e.clientY / window.innerHeight;
-     
-     // Update header gradient
-     header.style.background = `linear-gradient(135deg, 
-       rgba(${30 + x * 50}, ${30 + y * 50}, ${30 + (x + y) * 20}, 0.9), 
-       rgba(${50 + y * 50}, ${50 + x * 50}, ${60 + (x + y) * 20}, 0.9))`;
-     
-     // Parallax effect for decorative elements
-     glassElements.forEach(element => {
-       const speedX = element.classList.contains('glass-decoration-1') ? -15 : 10;
-       const speedY = element.classList.contains('glass-decoration-1') ? -10 : 15;
-       element.style.transform = `translate(${x * speedX}px, ${y * speedY}px)`;
-     });
-   }
- });
- 
- // Add CSS for ripple effect
- const rippleStyle = document.createElement('style');
- rippleStyle.textContent = `
-   .ripple {
-     position: absolute;
-     background: rgba(255, 255, 255, 0.3);
-     border-radius: 50%;
-     width: 100px;
-     height: 100px;
-     margin-top: -50px;
-     margin-left: -50px;
-     transform: scale(0);
-     animation: ripple 0.6s linear;
-     pointer-events: none;
-   }
-   
-   @keyframes ripple {
-     to {
-       transform: scale(2);
+ // Add CSS style untuk animasi
+ if (!document.getElementById('animation-styles')) {
+   const style = document.createElement('style');
+   style.id = 'animation-styles';
+   style.textContent = `
+     tr {
+       animation: fadeInUp 0.5s ease-out forwards;
        opacity: 0;
      }
-   }
- `;
- document.head.appendChild(rippleStyle);
- 
- // Keyboard navigation
- document.addEventListener('keydown', function(e) {
-   if (e.key === 'Escape') {
-     // Clear search on Escape
-     if (searchInput) {
-       searchInput.value = '';
-       renderData(feedbackData);
-       searchInput.blur();
+     
+     .feedback-card {
+       animation: fadeInUp 0.5s ease-out forwards;
+       opacity: 0;
      }
-   } else if (e.key === '/') {
-     // Focus search on slash key press
-     if (searchInput && document.activeElement !== searchInput) {
-       e.preventDefault();
-       searchInput.focus();
+     
+     @keyframes fadeInUp {
+       from {
+         opacity: 0;
+         transform: translateY(20px);
+       }
+       to {
+         opacity: 1;
+         transform: translateY(0);
+       }
      }
-   }
- });
- 
- // Add tooltip for search shortcut
- if (searchInput) {
-   searchInput.setAttribute('title', 'Tekan "/" untuk fokus pencarian');
- }
- 
- // Add notification for keyboard shortcuts
- setTimeout(() => {
-   const notification = document.createElement('div');
-   notification.className = 'shortcut-tip';
-   notification.innerHTML = `
-     <div>
-       <i class="fas fa-keyboard"></i> Shortcut Keyboard: 
-       <kbd>/</kbd> untuk pencarian, <kbd>Esc</kbd> untuk clear
-     </div>
-     <button class="tip-close"><i class="fas fa-times"></i></button>
+     
+     .fade-out {
+       animation: fadeOut 0.3s forwards;
+     }
+     
+     @keyframes fadeOut {
+       to { opacity: 0; }
+     }
+     
+     .error-message {
+       position: fixed;
+       bottom: 20px;
+       right: 20px;
+       background: var(--gradient-dark);
+       color: var(--text-primary);
+       padding: 15px;
+       border-radius: var(--radius-lg);
+       display: flex;
+       align-items: center;
+       max-width: 400px;
+       box-shadow: var(--shadow-md);
+       z-index: 1000;
+       animation: slideInRight 0.3s ease-out;
+       border: 1px solid var(--card-border);
+     }
+     
+     .error-icon {
+       margin-right: 10px;
+       font-size: 24px;
+       color: #ef4444;
+     }
+     
+     .error-close {
+       margin-left: 10px;
+       background: none;
+       border: none;
+       color: var(--text-secondary);
+       cursor: pointer;
+     }
+     
+     @keyframes slideInRight {
+       from { transform: translateX(100%); opacity: 0; }
+       to { transform: translateX(0); opacity: 1; }
+     }
+     
+     .tip-close {
+       background: none;
+       border: none;
+       color: var(--text-secondary);
+       margin-left: 10px;
+       cursor: pointer;
+       opacity: 0.7;
+     }
+     
+     .tip-close:hover {
+       opacity: 1;
+     }
    `;
-   document.body.appendChild(notification);
-   
-   notification.querySelector('.tip-close').addEventListener('click', () => {
-     notification.remove();
-   });
-   
-   setTimeout(() => {
-     notification.classList.add('fade-out');
-     setTimeout(() => notification.remove(), 500);
-   }, 5000);
- }, 2000);
- 
- // Add CSS for notification
- const notificationStyle = document.createElement('style');
- notificationStyle.textContent = `
-   .shortcut-tip {
-     position: fixed;
-     bottom: 20px;
-     left: 20px;
-     background: rgba(0, 0, 0, 0.7);
-     color: white;
-     padding: 10px 15px;
-     border-radius: 4px;
-     font-size: 14px;
-     display: flex;
-     align-items: center;
-     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-     z-index: 1000;
-     animation: slideInLeft 0.3s ease-out;
-     backdrop-filter: blur(5px);
-   }
-   
-   .shortcut-tip kbd {
-     background: rgba(255,255,255,0.2);
-     padding: 2px 6px;
-     border-radius: 3px;
-     margin: 0 3px;
-   }
-   
-   .tip-close {
-     background: none;
-     border: none;
-     color: white;
-     margin-left: 10px;
-     cursor: pointer;
-     opacity: 0.7;
-   }
-   
-   .tip-close:hover {
-     opacity: 1;
-   }
-   
-   @keyframes slideInLeft {
-     from { transform: translateX(-100%); opacity: 0; }
-     to { transform: translateX(0); opacity: 1; }
-   }
- `;
- document.head.appendChild(notificationStyle);
+   document.head.appendChild(style);
+ }
 });

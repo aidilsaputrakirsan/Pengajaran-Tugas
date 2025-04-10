@@ -370,29 +370,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Format nilai with color coding
+  // Format nilai with color coding - DIMODIFIKASI UNTUK HANYA MENAMPILKAN NILAI ANGKA
   function formatNilai(nilai) {
     let colorClass = '';
-    let gradeLetter = '';
     
     if (nilai >= 90) {
       colorClass = 'nilai-a';
-      gradeLetter = 'A';
     } else if (nilai >= 80) {
       colorClass = 'nilai-b';
-      gradeLetter = 'B';
     } else if (nilai >= 70) {
       colorClass = 'nilai-c';
-      gradeLetter = 'C';
     } else if (nilai >= 60) {
       colorClass = 'nilai-d';
-      gradeLetter = 'D';
     } else {
       colorClass = 'nilai-e';
-      gradeLetter = 'E';
     }
     
-    return `<span class="${colorClass}">${nilai} (${gradeLetter})</span>`;
+    // Hanya menampilkan nilai angka tanpa konversi ke huruf
+    return `<span class="${colorClass}">${nilai}</span>`;
   }
   
   // Render data based on current view
