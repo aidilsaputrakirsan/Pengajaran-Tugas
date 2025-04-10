@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="icon.png" type="image/png">
+  <title>Konsolidasi - Dashboard Manajemen</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #4cc9f0;
+      --background: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --disabled: #64748b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background-color: var(--background);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(76, 201, 240, 0.1) 0%, transparent 20%);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Particle background effect */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+      animation: float 15s infinite linear;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    .header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+    
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .header h1::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 4px;
+      bottom: -8px;
+      left: 20%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 4px;
+    }
+    
+    .header p {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 1.5rem auto 0;
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--card);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+    
+    .theme-toggle i {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+    
+    /* Back Button */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: var(--card);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    
+    .back-button:hover {
+      transform: scale(1.1);
+    }
+    
+    .back-button i {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+    
+    /* Main container */
+    .main-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    
+    /* Form Container */
+    .form-container {
+      background-color: var(--card);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 0.5s ease;
+    }
+    
+    .form-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .form-title i {
+      color: var(--primary);
+    }
+    
+    .info-box {
+      background-color: rgba(76, 201, 240, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 1rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.5rem;
+    }
+    
+    .info-box-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .info-box-title i {
+      color: var(--accent);
+    }
+    
+    .info-box-content {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    
+    .info-box ul {
+      margin-top: 0.5rem;
+      margin-left: 1.5rem;
+    }
+    
+    .info-box li {
+      margin-bottom: 0.25rem;
+    }
+    
+    .response-time {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    
+    .response-time i {
+      color: var(--warning);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background-color: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3);
+    }
+    
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .form-hint {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-top: 0.5rem;
+    }
+    
+    .form-file-upload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed rgba(148, 163, 184, 0.3);
+      border-radius: 8px;
+      padding: 2rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .form-file-upload:hover {
+      border-color: var(--primary);
+      background-color: rgba(67, 97, 238, 0.05);
+    }
+    
+    .form-file-upload i {
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    
+    .form-file-upload p {
+      color: #94a3b8;
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-file-upload strong {
+      color: var(--primary);
+    }
+    
+    .form-file-upload input[type="file"] {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .image-preview {
+      display: none;
+      width: 100%;
+      margin-top: 1rem;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .image-preview img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+    }
+    
+    .btn-secondary {
+      background: rgba(148, 163, 184, 0.1);
+      color: var(--text);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(148, 163, 184, 0.2);
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal-content {
+      background-color: var(--card);
+      border-radius: 12px;
+      max-width: 90%;
+      max-height: 90%;
+      overflow: auto;
+      padding: 1rem;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transform: scale(0.9);
+      transition: all 0.3s ease;
+    }
+    
+    .modal.show .modal-content {
+      transform: scale(1);
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(148, 163, 184, 0.1);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    
+    .modal-close:hover {
+      background: rgba(148, 163, 184, 0.2);
+      transform: rotate(90deg);
+    }
+    
+    .modal-image {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    
+    /* Loading */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 23, 42, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .loading-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 3px solid rgba(67, 97, 238, 0.3);
+      border-top-color: var(--primary);
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    /* Toast notifications */
+    .toast-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1500;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 300px;
+    }
+    
+    .toast {
+      background-color: var(--card);
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      animation: slideIn 0.3s ease, fadeOut 0.3s ease 3.7s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .toast-success {
+      border-left: 4px solid var(--success);
+    }
+    
+    .toast-error {
+      border-left: 4px solid var(--error);
+    }
+    
+    .toast-info {
+      border-left: 4px solid var(--primary);
+    }
+    
+    .toast-icon {
+      font-size: 1.25rem;
+    }
+    
+    .toast-success .toast-icon {
+      color: var(--success);
+    }
+    
+    .toast-error .toast-icon {
+      color: var(--error);
+    }
+    
+    .toast-info .toast-icon {
+      color: var(--primary);
+    }
+    
+    .toast-content {
+      flex-grow: 1;
+    }
+    
+    .toast-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .toast-message {
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    
+    .toast-close {
+      background: none;
+      border: none;
+      color: var(--disabled);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .toast-close:hover {
+      color: var(--text);
+    }
+    
+    .toast-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      width: 100%;
+    }
+    
+    .toast-progress-bar {
+      height: 100%;
+      width: 100%;
+      animation: progress 4s linear;
+    }
+    
+    .toast-success .toast-progress-bar {
+      background-color: var(--success);
+    }
+    
+    .toast-error .toast-progress-bar {
+      background-color: var(--error);
+    }
+    
+    .toast-info .toast-progress-bar {
+      background-color: var(--primary);
+    }
+    
+    /* Success message */
+    .success-message {
+      display: none;
+      background-color: rgba(16, 185, 129, 0.1);
+      border-left: 4px solid var(--success);
+      padding: 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin-top: 1.5rem;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .success-message-icon {
+      font-size: 3rem;
+      color: var(--success);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .success-message-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    
+    .success-message-content {
+      text-align: center;
+      line-height: 1.5;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+    
+    @keyframes progress {
+      from {
+        width: 100%;
+      }
+      to {
+        width: 0%;
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Media queries */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .header p {
+        font-size: 0.95rem;
+      }
+      
+      .form-container {
+        padding: 1.5rem;
+      }
+      
+      .form-actions {
+        flex-direction: column;
+      }
+      
+      .form-actions .btn {
+        width: 100%;
+      }
+      
+      .theme-toggle, .back-button {
+        top: 10px;
+        width: 40px;
+        height: 40px;
+      }
+      
+      .theme-toggle i, .back-button i {
+        font-size: 1.2rem;
+      }
+    }
+    
+    /* Light mode styles */
+    body.light-mode {
+      --background: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --disabled: #94a3b8;
+    }
+    
+    body.light-mode .form-container {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    body.light-mode .form-control {
+      background-color: rgba(241, 245, 249, 0.8);
+      border: 1px solid rgba(203, 213, 225, 0.4);
+    }
+    
+    body.light-mode .header h1 {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    
+    body.light-mode .header p {
+      color: #475569;
+    }
+    
+    body.light-mode .form-hint,
+    body.light-mode .form-file-upload p {
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <div class="particles" id="particles"></div>
+  
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+  </div>
+  
+  <!-- Image Modal -->
+  <div class="modal" id="imageModal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">
+        <i class="fas fa-times"></i>
+      </button>
+      <img src="" alt="Preview" class="modal-image" id="modalImage">
+    </div>
+  </div>
+  
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+  
+  <!-- Theme Toggle -->
+  <div class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </div>
+  
+  <!-- Back Button -->
+  <a href="../index.html" class="back-button" id="backButton">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+  
+  <!-- Header -->
+  <div class="header animate__animated animate__fadeInDown">
+    <h1>Konsolidasi</h1>
+    <p>Platform tanya jawab untuk bantuan pembelajaran jika ChatGPT, DeepSeek, atau AI lainnya tidak dapat menjawab pertanyaan Anda.</p>
+  </div>
+  
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Form Container -->
+    <div class="form-container" id="formContainer">
+      <div class="info-box">
+        <div class="info-box-title">
+          <i class="fas fa-info-circle"></i>
+          <span>Informasi Konsolidasi</span>
+        </div>
+        <div class="info-box-content">
+          <p>Silakan gunakan form ini jika Anda memiliki pertanyaan yang tidak bisa dijawab oleh ChatGPT, DeepSeek, atau AI lainnya. Dosen akan menjawab pertanyaan Anda melalui email.</p>
+          <ul>
+            <li>Jelaskan pertanyaan dengan detail dan jelas</li>
+            <li>Sertakan screenshot atau gambar jika diperlukan</li>
+            <li>Pastikan alamat email Anda benar</li>
+          </ul>
+          <div class="response-time">
+            <i class="fas fa-clock"></i>
+            <span>Waktu respon: minimal 1 jam, maksimal 2x24 jam setelah pengajuan pertanyaan</span>
+          </div>
+        </div>
+      </div>
+      
+      <h2 class="form-title"><i class="fas fa-question-circle"></i> Ajukan Pertanyaan</h2>
+      <form id="questionForm">
+        <div class="form-group">
+          <label for="name" class="form-label">Nama</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="Masukkan nama Anda" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="Masukkan email Anda untuk menerima jawaban" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="question" class="form-label">Pertanyaan</label>
+          <textarea id="question" name="question" class="form-control" placeholder="Tulis pertanyaan Anda disini secara detail..." required></textarea>
+          <div class="form-hint">Jelaskan pertanyaan Anda dengan detail untuk mendapatkan jawaban yang tepat.</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="image" class="form-label">Gambar (opsional)</label>
+          <div class="form-file-upload" id="dropArea">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Tarik dan lepas gambar di sini, atau <strong>klik untuk memilih</strong></p>
+            <p class="form-hint">Format yang didukung: JPG, PNG, GIF (Maks. 5MB)</p>
+            <input type="file" id="image" name="image" accept="image/*">
+          </div>
+          <div class="image-preview" id="imagePreview">
+            <img src="" alt="Preview" id="previewImage">
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submitBtn">
+            <i class="fas fa-paper-plane"></i> Kirim Pertanyaan
+          </button>
+          <button type="reset" class="btn btn-secondary" id="resetBtn">
+            <i class="fas fa-redo"></i> Reset Form
+          </button>
+        </div>
+      </form>
+      
+      <!-- Success Message -->
+      <div class="success-message" id="successMessage">
+        <div class="success-message-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h3 class="success-message-title">Pertanyaan Berhasil Dikirim!</h3>
+        <p class="success-message-content">
+          Terima kasih telah mengajukan pertanyaan. Jawaban akan dikirimkan ke email Anda dalam waktu maksimal 2x24 jam.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Google Apps Script URL
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKVx-TnYemT6WwYD3b50sLB0u0hjg0LqrP6WPbYG3jIyV1NuSrm0TXgx2YvZtYK7j0/exec'; 
+    // Note: You'll need to replace this with your actual deployed Google Apps Script URL
+    
+    // DOM Elements
+    const questionForm = document.getElementById('questionForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const questionInput = document.getElementById('question');
+    const imageInput = document.getElementById('image');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewImage = document.getElementById('previewImage');
+    const dropArea = document.getElementById('dropArea');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const formContainer = document.getElementById('formContainer');
+    const successMessage = document.getElementById('successMessage');
+    const imageModal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalClose = document.getElementById('modalClose');
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('i');
+    const toastContainer = document.getElementById('toastContainer');
+    
+    // Variables to store current state
+    let fileToUpload = null;
+    
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      createParticles();
+      
+      // Check for saved theme preference
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      }
+    });
+    
+    // Theme toggle functionality
+    themeToggle.addEventListener('click', function() {
+      document.body.classList.toggle('light-mode');
+      
+      if (document.body.classList.contains('light-mode')) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'light');
+      } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+    
+    // File upload preview
+    imageInput.addEventListener('change', function(e) {
+      handleFileSelect(e);
+    });
+    
+    // Drag and drop functionality
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropArea.addEventListener(eventName, highlight, false);
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropArea.addEventListener(eventName, unhighlight, false);
+    });
+    
+    function highlight() {
+      dropArea.classList.add('active');
+    }
+    
+    function unhighlight() {
+      dropArea.classList.remove('active');
+    }
+    
+    dropArea.addEventListener('drop', handleDrop, false);
+    
+    function handleDrop(e) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      
+      if (files.length > 0) {
+        imageInput.files = files;
+        handleFileSelect({target: {files: files}});
+      }
+    }
+    
+    function handleFileSelect(e) {
+      const file = e.target.files[0];
+      
+      if (!file) return;
+      
+      // Check file type
+      if (!file.type.match('image.*')) {
+        showToast('Error', 'Hanya file gambar yang diperbolehkan', 'error');
+        return;
+      }
+      
+      // Check file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        showToast('Error', 'Ukuran file terlalu besar (maks. 5MB)', 'error');
+        return;
+      }
+      
+      fileToUpload = file;
+      
+      // Show preview
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        previewImage.src = e.target.result;
+        imagePreview.style.display = 'block';
+      };
+      
+      reader.readAsDataURL(file);
+    }
+    
+    // Form submission
+    questionForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Validate form
+      if (!nameInput.value || !emailInput.value || !questionInput.value) {
+        showToast('Error', 'Silakan lengkapi semua field yang diperlukan', 'error');
+        return;
+      }
+      
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailInput.value)) {
+        showToast('Error', 'Format email tidak valid', 'error');
+        return;
+      }
+      
+      showLoading();
+      
+      try {
+        // Create form data for submission
+        const formData = new FormData();
+        formData.append('action', 'submitQuestion');
+        formData.append('name', nameInput.value);
+        formData.append('email', emailInput.value);
+        formData.append('question', questionInput.value);
+        
+        // If there's a file to upload, handle it
+        if (fileToUpload) {
+          // Convert file to base64 for transmission
+          const base64data = await convertFileToBase64(fileToUpload);
+          
+          formData.append('image', base64data);
+          formData.append('filename', fileToUpload.name);
+          formData.append('mimeType', fileToUpload.type);
+        }
+        
+        // Send data to Google Apps Script
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // Show success message
+          questionForm.style.display = 'none';
+          successMessage.style.display = 'block';
+          
+          // Reset form
+          resetForm();
+        } else {
+          showToast('Error', result.error || 'Gagal mengirim pertanyaan', 'error');
+        }
+      } catch (error) {
+        console.error('Error submitting question:', error);
+        showToast('Error', 'Terjadi kesalahan saat mengirim pertanyaan', 'error');
+      } finally {
+        hideLoading();
+      }
+    });
+    
+    // Reset form
+    resetBtn.addEventListener('click', function() {
+      resetForm();
+    });
+    
+    function resetForm() {
+      questionForm.reset();
+      imagePreview.style.display = 'none';
+      previewImage.src = '';
+      fileToUpload = null;
+    }
+    
+    // Convert file to base64
+    function convertFileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = error => reject(error);
+      });
+    }
+    
+    // Modal close
+    modalClose.addEventListener('click', function() {
+      imageModal.classList.remove('show');
+    });
+    
+    // Close modal when clicking outside content
+    imageModal.addEventListener('click', function(e) {
+      if (e.target === imageModal) {
+        imageModal.classList.remove('show');
+      }
+    });
+    
+    // Preview image in modal
+    if (previewImage) {
+      previewImage.addEventListener('click', function() {
+        modalImage.src = this.src;
+        imageModal.classList.add('show');
+      });
+    }
+    
+    // Helper Functions
+    
+    // Show loading overlay
+    function showLoading() {
+      loadingOverlay.classList.add('show');
+    }
+    
+    // Hide loading overlay
+    function hideLoading() {
+      loadingOverlay.classList.remove('show');
+    }
+    
+    // Show toast notification
+    function showToast(title, message, type) {
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.innerHTML = `
+        <div class="toast-icon">
+          <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+        </div>
+        <div class="toast-content">
+          <div class="toast-title">${title}</div>
+          <div class="toast-message">${message}</div>
+        </div>
+        <button class="toast-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="toast-progress">
+          <div class="toast-progress-bar"></div>
+        </div>
+      `;
+      
+      toastContainer.appendChild(toast);
+      
+      // Add event listener to close button
+      toast.querySelector('.toast-close').addEventListener('click', function() {
+        toast.remove();
+      });
+      
+      // Remove toast after 4 seconds
+      setTimeout(() => {
+        toast.remove();
+      }, 4000);
+    }
+    
+    // Create particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = window.innerWidth < 768 ? 15 : 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size
+        const size = Math.random() * 7 + 3;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration
+        const duration = Math.random() * 20 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Random delay
+        const delay = Math.random() * 5;
+        particle.style.animationDelay = `${delay}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    // Recreate particles on window resize
+    window.addEventListener('resize', function() {
+      const particlesContainer = document.getElementById('particles');
+      particlesContainer.innerHTML = '';
+      createParticles();
+    });
+  </script>
+</body>
+</html>

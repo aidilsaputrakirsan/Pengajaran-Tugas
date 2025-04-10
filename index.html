@@ -263,6 +263,7 @@
     .delay-2 { --animate-delay: 0.2s; }
     .delay-3 { --animate-delay: 0.3s; }
     .delay-4 { --animate-delay: 0.4s; }
+    .delay-5 { --animate-delay: 0.5s; }
     
     /* Dark/Light mode switch */
     .theme-toggle {
@@ -490,8 +491,21 @@
         </a>
       </div>
       
+      <!-- KONSOLIDASI -->
+      <div class="menu-item active animate__animated animate__fadeInUp delay-3" id="konsolidasi">
+        <div class="status-badge badge-active">Aktif</div>
+        <div class="shine-effect"></div>
+        <a href="Konsolidasi/index.html" class="menu-link">
+          <div class="menu-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="menu-title">Konsolidasi</div>
+          <div class="menu-desc">Tanya jawab dan diskusi mahasiswa</div>
+        </a>
+      </div>
+      
       <!-- LAPORAN TUGAS -->
-      <div class="menu-item disabled animate__animated animate__fadeInUp delay-3" id="laporan">
+      <div class="menu-item disabled animate__animated animate__fadeInUp delay-4" id="laporan">
         <div class="status-badge badge-soon">Soon</div>
         <div class="shine-effect"></div>
         <a href="#" class="menu-link">
@@ -504,7 +518,7 @@
       </div>
       
       <!-- DASHBOARD REKAPITULASI -->
-      <div class="menu-item disabled animate__animated animate__fadeInUp delay-4" id="dashboard">
+      <div class="menu-item disabled animate__animated animate__fadeInUp delay-5" id="dashboard">
         <div class="status-badge badge-soon">Soon</div>
         <div class="shine-effect"></div>
         <a href="#" class="menu-link">
@@ -530,15 +544,24 @@
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle.querySelector('i');
     
+    // Check for saved theme preference
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light-mode');
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+    }
+    
     themeToggle.addEventListener('click', function() {
       document.body.classList.toggle('light-mode');
       
       if (document.body.classList.contains('light-mode')) {
         themeIcon.classList.remove('fa-moon');
         themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'light');
       } else {
         themeIcon.classList.remove('fa-sun');
         themeIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'dark');
       }
     });
     
@@ -610,7 +633,8 @@
     
     // Check if we're not on the main page
     if (window.location.pathname.includes('/Pengumpulan/') || 
-        window.location.pathname.includes('/Penilaian/')) {
+        window.location.pathname.includes('/Penilaian/') ||
+        window.location.pathname.includes('/Konsolidasi/')) {
       backButton.style.display = 'flex';
       backButton.addEventListener('click', function(e) {
         e.preventDefault();
