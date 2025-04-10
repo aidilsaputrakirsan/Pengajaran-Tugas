@@ -1,190 +1,515 @@
-/* Reset dasar */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Course page specific styles */
+
+/* Container for filters and view options */
+.controls-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Variabel tema dark */
-:root {
-  --bg-color: #121212;
-  --header-bg: linear-gradient(135deg, #1e1e1e, #323232);
-  --card-bg: #1e1e1e;
-  --text-color: #e0e0e0;
-  --accent-color: #4CAF50;
-  --hover-bg: #2a2a2a;
-  --border-color: #333;
-  --btn-bg: #1e1e1e;
-  --btn-hover: #333;
-}
-
-/* Body dan font */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  line-height: 1.6;
-}
-
-/* Header */
-header {
-  background: var(--header-bg);
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  animation: fadeIn 1s ease-in-out;
-}
-header h1 {
-  font-size: 2em;
-  color: var(--text-color);
-}
-
-/* Main konten */
-main {
-  padding: 20px;
-}
-
-/* Container tombol tugas */
+/* Task Button Container */
 .btn-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  max-width: 100%;
+  overflow-x: auto;
+  padding-bottom: var(--space-sm);
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-primary) var(--bg-secondary);
 }
+
+.btn-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.btn-container::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-pill);
+}
+
+.btn-container::-webkit-scrollbar-thumb {
+  background-color: var(--accent-secondary);
+  border-radius: var(--radius-pill);
+}
+
+/* Task Buttons */
 .tugas-btn {
   background-color: var(--btn-bg);
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  padding: 10px 15px;
+  color: var(--text-secondary);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  font-size: 0.9em;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
+
+.tugas-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.7s;
+  z-index: -1;
+}
+
 .tugas-btn:hover {
   background-color: var(--btn-hover);
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  color: var(--text-primary);
 }
+
+.tugas-btn:hover::before {
+  left: 100%;
+}
+
 .tugas-btn:active {
-  transform: scale(0.98);
+  transform: translateY(1px);
 }
 
-/* Kelas untuk tombol aktif agar tampil berbeda secara persisten */
 .tugas-btn.active {
-  background-color: var(--accent-color);
-  color: #fff;
-  border-color: var(--accent-color);
+  background-color: var(--accent-primary);
+  color: white;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
 }
 
-/* Container pencarian */
-.search-container {
-  text-align: center;
-  margin-bottom: 20px;
+/* View toggle */
+.view-toggle {
+  display: flex;
+  align-items: center;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs);
+  margin-right: var(--space-md);
 }
-.search-container input {
-  width: 80%;
-  max-width: 400px;
-  padding: 10px 15px;
+
+.view-toggle-btn {
+  background: transparent;
   border: none;
-  border-radius: 30px;
+  color: var(--text-secondary);
+  font-size: var(--font-size-md);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.view-toggle-btn.active {
+  background: var(--accent-primary);
+  color: white;
+}
+
+/* Search Container */
+.search-container {
+  position: relative;
+  margin-bottom: var(--space-lg);
+  max-width: 400px;
+  width: 100%;
+}
+
+.search-container input {
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  padding-left: calc(var(--space-lg) * 2);
+  border: none;
+  border-radius: var(--radius-pill);
   outline: none;
-  font-size: 1em;
-  transition: all 0.3s ease;
-  background-color: var(--card-bg);
-  color: var(--text-color);
+  font-size: var(--font-size-md);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  transition: all var(--transition-medium);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
+
+.search-container::before {
+  content: "🔍";
+  position: absolute;
+  left: var(--space-md);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  font-size: var(--font-size-md);
+  pointer-events: none;
+}
+
 .search-container input:focus {
-  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+  box-shadow: 0 0 0 2px var(--accent-primary);
 }
 
-/* Tabel responsif */
-.table-container {
-  overflow-x: auto; /* Scroll horizontal kalau tabel lelet */
-  position: relative; /* Untuk overlay loading */
-}
-table {
-  width: 100%; /* Pastikan tabel penuh lebar */
-  border-collapse: collapse; /* Hilangkan jarak antar sel */
-  background: var(--card-bg);
+/* Main container layout */
+.content-container {
   margin: 0 auto;
-  animation: slideUp 0.5s ease-in-out;
-  font-size: 0.9em; /* Ukuran font agak kecil biar pas */
-}
-th, td {
-  padding: 12px 15px; /* Jarak dalam sel biar rapi */
-  text-align: left; /* Teks rata kiri biar seragam */
-  border-bottom: 1px solid #ddd; /* Garis bawah tiap baris */
-  vertical-align: top; /* Teks mulai dari atas */
+  transition: padding var(--transition-medium);
 }
 
-/* Lebar tiap kolom */
-th:nth-child(1), td:nth-child(1) { width: 15%; } /* Kolom 1: Nama */
-th:nth-child(2), td:nth-child(2) { width: 10%; } /* Kolom 2: Tugas */
-th:nth-child(3), td:nth-child(3) { width: 10%; } /* Kolom 3: Nilai */
-th:nth-child(4), td:nth-child(4) { width: 40%; } /* Kolom 4: Feedback */
-th:nth-child(5), td:nth-child(5) { width: 25%; } /* Kolom 5: Waktu */
+/* Card View (alternative to table) */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.feedback-card {
+  position: relative;
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--card-border);
+  padding: var(--space-lg);
+  transition: all var(--transition-medium);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: slideUp 0.5s ease-out;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.feedback-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent-primary);
+  opacity: 0.8;
+}
+
+.feedback-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.card-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.card-badge {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--accent-secondary);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-feedback {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  max-height: 150px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-primary) rgba(0, 0, 0, 0.1);
+}
+
+.card-feedback::-webkit-scrollbar {
+  width: 4px;
+}
+
+.card-feedback::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-pill);
+}
+
+.card-feedback::-webkit-scrollbar-thumb {
+  background-color: var(--accent-secondary);
+  border-radius: var(--radius-pill);
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+  margin-top: auto;
+}
+
+.card-meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.card-meta-icon {
+  font-size: 1.2em;
+}
+
+/* Loading skeleton */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.05) 20%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-card {
+  height: 200px;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+}
+
+/* Enhanced Table View */
+.table-container {
+  overflow-x: auto;
+  position: relative;
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-medium);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.table-container:hover {
+  box-shadow: var(--shadow-md);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+th {
+  background-color: rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background-color var(--transition-fast);
+}
+
+th, td {
+  padding: var(--space-md);
+  text-align: left;
+  border-bottom: 1px solid var(--card-border);
+}
+
+tr {
+  transition: background-color var(--transition-fast);
+}
+
+tbody tr:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+}
 
 td:nth-child(4) {
-  white-space: pre-wrap; /* Teks panjang dibungkus, spasi dipertahankan */
-  max-height: 100px; /* Batasi tinggi */
-  overflow-y: auto; /* Tambah scroll kalau kepanjangan */
-  word-wrap: break-word; /* Pastikan kata terpotong rapi */
+  white-space: pre-wrap;
+  max-height: 100px;
+  overflow-y: auto;
+  word-wrap: break-word;
 }
 
-/* Loading overlay */
+/* Loading overlay with improved styles */
 .loading-overlay {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(18, 18, 18, 0.8);
+  right: 0;
+  bottom: 0;
+  background: rgba(18, 18, 18, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  z-index: var(--z-mid);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
 }
+
 .spinner {
-  border: 4px solid rgba(255,255,255,0.2);
-  border-top: 4px solid var(--accent-color);
-  border-radius: 50%;
   width: 40px;
   height: 40px;
-  animation: spin 1s linear infinite;
+  position: relative;
 }
+
+.spinner:before,
+.spinner:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.spinner:before {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(76, 175, 80, 0), rgba(76, 175, 80, 0.3));
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.spinner:after {
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 80%;
+  transform: translate(-50%, -50%);
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid var(--accent-primary);
+  animation: spin 0.8s linear infinite;
+}
+
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Footer */
-footer {
+/* No data message */
+.no-data {
   text-align: center;
-  padding: 15px;
-  margin-top: 20px;
-  background-color: var(--card-bg);
-  color: #888;
-  font-size: 0.9em;
-  animation: fadeIn 1s ease-in-out;
+  padding: var(--space-xl);
+  color: var(--text-secondary);
+  font-size: var(--font-size-md);
 }
 
-/* Animasi */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.no-data-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+  color: var(--text-tertiary);
 }
 
-/* Responsif */
-@media (max-width: 600px) {
-  .tugas-btn {
-    font-size: 0.8em;
-    padding: 8px 12px;
+/* Back button */
+.back-link {
+  position: absolute;
+  left: var(--space-md);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  font-size: var(--font-size-md);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  transition: all var(--transition-fast);
+}
+
+.back-link:hover {
+  background: var(--accent-primary);
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Media queries for responsive design */
+@media (max-width: 992px) {
+  .card-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
-  .search-container input {
-    width: 90%;
+}
+
+@media (max-width: 768px) {
+  .controls-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-container {
+    max-width: 100%;
+  }
+  
+  .view-toggle {
+    align-self: flex-end;
+    margin-right: 0;
+  }
+  
+  .card-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .back-link {
+    position: static;
+    margin-right: var(--space-md);
+    transform: none;
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 480px) {
+  th, td {
+    padding: var(--space-sm);
+    font-size: var(--font-size-xs);
+  }
+  
+  .table-container {
+    margin: 0 -var(--space-md);
+    width: calc(100% + var(--space-md) * 2);
+    border-radius: 0;
+  }
+  
+  .tugas-btn {
+    font-size: var(--font-size-xs);
+    padding: var(--space-xs) var(--space-sm);
   }
 }
