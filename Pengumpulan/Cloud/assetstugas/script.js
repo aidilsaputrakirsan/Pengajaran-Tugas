@@ -1,6 +1,6 @@
 (function(){
   const ProwebNamespace = {
-    webAppUrl: 'https://script.google.com/macros/s/AKfycbzrckRq5QJQRV8umws_kMp2epdYXdvim7B3ooLMA0abNJCuKbiGNL0K3WGleUoAzUAS/exec'
+    webAppUrl: 'https://script.google.com/macros/s/AKfycbwZrgXImpZxlXyElZLqQz7X5GKAb-eyfyiYj2T-NLDkPeAONDwkshnFBbY6INx97Jz-/exec'
   };
 
   // Ambil nilai tugas dari atribut data di tag <html>
@@ -25,7 +25,7 @@
       fileLabel.classList.add('active');
     } else {
       fileInfo.textContent = "Ukuran file: 0 MB";
-      fileLabel.textContent = "Klik untuk memilih file Markdown (Maks. 5MB)";
+      fileLabel.textContent = "Klik untuk memilih file PDF (Maks. 5MB)";
       fileLabel.classList.remove('active');
     }
   });
@@ -41,8 +41,8 @@
     const status = document.getElementById('status');
 
     // Validasi tipe file dan ukuran (maks 5MB)
-    if (!file || !file.name.toLowerCase().endsWith('.md')) {
-      showStatus('Hanya file Markdown (.md) yang diperbolehkan.', 'error');
+    if (!file || !file.name.toLowerCase().endsWith('.pdf')) {
+      showStatus('Hanya file PDF (.pdf) yang diperbolehkan.', 'error');
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
@@ -51,7 +51,7 @@
     }
 
     // Validasi format nama file
-    const expectedFilename = `${nim}_${name.replace(/\s+/g, '_')}_${tugas}.md`;
+    const expectedFilename = `${nim}_${name.replace(/\s+/g, '_')}_${tugas}.pdf`;
     if (file.name !== expectedFilename) {
       showStatus(`Nama file tidak sesuai. Harusnya "${expectedFilename}".`, 'error');
       return;
@@ -75,7 +75,7 @@
             email: email,
             file: base64File,
             filename: file.name,
-            mimeType: file.type || 'text/plain',
+            mimeType: file.type || 'application/pdf',
             tugas: tugas
           })
         });
@@ -84,7 +84,7 @@
           showStatus(`File berhasil diunggah! Lihat file: <a href="${result.fileUrl}" target="_blank">View File</a>`, 'success');
           document.getElementById('uploadForm').reset();
           fileInfo.textContent = "Ukuran file: 0 MB";
-          fileLabel.textContent = "Klik untuk memilih file Markdown (Maks. 5MB)";
+          fileLabel.textContent = "Klik untuk memilih file PDF (Maks. 5MB)";
           fileLabel.classList.remove('active');
         } else {
           showStatus(`Error: ${result.error}`, 'error');

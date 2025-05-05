@@ -1,4 +1,4 @@
-// Konfigurasi semua tugas
+// Konfigurasi semua tugas (semua menggunakan PDF)
 const TASKS_CONFIG = {
     '1': {
       fileType: 'pdf',
@@ -50,53 +50,53 @@ const TASKS_CONFIG = {
       fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format PDF dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.pdf"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas7.pdf"</em>'
     },
     '9': {
-      fileType: 'md',
+      fileType: 'pdf',
       title: 'Tugas 9',
-      fileLabel: 'Klik untuk memilih file Markdown (Maks. 5MB)',
-      mimeAccept: '.md',
-      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format Markdown dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.md"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas9.md"</em>'
+      fileLabel: 'Klik untuk memilih file PDF (Maks. 5MB)',
+      mimeAccept: '.pdf',
+      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format PDF dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.pdf"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas9.pdf"</em>'
     },
     '10': {
-      fileType: 'md',
+      fileType: 'pdf',
       title: 'Tugas 10',
-      fileLabel: 'Klik untuk memilih file Markdown (Maks. 5MB)',
-      mimeAccept: '.md',
-      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format Markdown dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.md"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas10.md"</em>'
+      fileLabel: 'Klik untuk memilih file PDF (Maks. 5MB)',
+      mimeAccept: '.pdf',
+      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format PDF dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.pdf"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas10.pdf"</em>'
     },
     '11': {
-      fileType: 'md',
+      fileType: 'pdf',
       title: 'Tugas 11',
-      fileLabel: 'Klik untuk memilih file Markdown (Maks. 5MB)',
-      mimeAccept: '.md',
-      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format Markdown dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.md"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas11.md"</em>'
+      fileLabel: 'Klik untuk memilih file PDF (Maks. 5MB)',
+      mimeAccept: '.pdf',
+      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format PDF dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.pdf"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas11.pdf"</em>'
     },
     '12': {
-      fileType: 'md',
+      fileType: 'pdf',
       title: 'Tugas 12',
-      fileLabel: 'Klik untuk memilih file Markdown (Maks. 5MB)',
-      mimeAccept: '.md',
-      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format Markdown dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.md"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas12.md"</em>'
+      fileLabel: 'Klik untuk memilih file PDF (Maks. 5MB)',
+      mimeAccept: '.pdf',
+      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format PDF dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.pdf"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas12.pdf"</em>'
     },
     '13': {
-      fileType: 'md',
+      fileType: 'pdf',
       title: 'Tugas 13',
-      fileLabel: 'Klik untuk memilih file Markdown (Maks. 5MB)',
-      mimeAccept: '.md',
-      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format Markdown dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.md"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas13.md"</em>'
+      fileLabel: 'Klik untuk memilih file PDF (Maks. 5MB)',
+      mimeAccept: '.pdf',
+      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format PDF dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.pdf"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas13.pdf"</em>'
     },
     '14': {
-      fileType: 'md',
+      fileType: 'pdf',
       title: 'Tugas 14',
-      fileLabel: 'Klik untuk memilih file Markdown (Maks. 5MB)',
-      mimeAccept: '.md',
-      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format Markdown dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.md"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas14.md"</em>'
+      fileLabel: 'Klik untuk memilih file PDF (Maks. 5MB)',
+      mimeAccept: '.pdf',
+      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format PDF dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.pdf"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas14.pdf"</em>'
     },
     '15': {
-      fileType: 'md',
+      fileType: 'pdf',
       title: 'Tugas 15',
-      fileLabel: 'Klik untuk memilih file Markdown (Maks. 5MB)',
-      mimeAccept: '.md',
-      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format Markdown dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.md"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas15.md"</em>'
+      fileLabel: 'Klik untuk memilih file PDF (Maks. 5MB)',
+      mimeAccept: '.pdf',
+      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format PDF dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.pdf"</strong>. Contoh: <em>"10251000_Aidil_Saputra_Tugas15.pdf"</em>'
     },
     'UTS': {
       fileType: 'pdf',
@@ -110,7 +110,7 @@ const TASKS_CONFIG = {
       title: 'UAS',
       fileLabel: 'Klik untuk memilih file PDF (Maks. 5MB)',
       mimeAccept: '.pdf',
-      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format PDF dengan nama file <strong>"NIM_Nama_Lengkap_TugasX.pdf"</strong>. Contoh: <em>"10251000_Aidil_Saputra_TugasUAS.pdf"</em>'
+      fileInstruction: '<strong>Keterangan:</strong> File yang diunggah harus dalam format PDF dengan nama file <strong>"NIM_Nama_Lengkap_TugasUAS.pdf"</strong>. Contoh: <em>"10251000_Aidil_Saputra_TugasUAS.pdf"</em>'
     }
   };
   
