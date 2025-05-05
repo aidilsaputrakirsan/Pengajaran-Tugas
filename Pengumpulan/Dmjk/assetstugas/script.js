@@ -1,19 +1,27 @@
 (function(){
   const ProwebNamespace = {
-    webAppUrl: 'https://script.google.com/macros/s/AKfycbwMoHjhwFy5jYmZQii_Mu63_b5gk8gp8iEC2EoYzsJfLLQFyhVazRNXEf6hQYHyzCgw/exec'
+    webAppUrl: 'https://script.google.com/macros/s/AKfycbwd_pX1u0DhYoDD5ngWEEON8pzkId8gzL4ctbXfhgGDtA8g5vWvBRNt52fA8tvOwSa9/exec'
   };
 
-  // Ambil nilai tugas dari atribut data di tag <html>
-  const tugas = document.documentElement.getAttribute('data-tugas') || "Tugas1";
+  // Ambil nilai tugas dari URL parameter, bukan dari data-tugas attribute
+  const urlParams = new URLSearchParams(window.location.search);
+  const taskId = urlParams.get('id') || '1';
+  
+  // Format tugas berdasarkan taskId
+  let tugas;
+  if (taskId === 'UTS') {
+    tugas = 'TugasUTS';
+  } else if (taskId === 'UAS') {
+    tugas = 'TugasUAS';
+  } else {
+    tugas = `Tugas${taskId}`;
+  }
 
   const fileInput = document.getElementById('file');
   const fileInfo = document.getElementById('fileInfo');
   const fileLabel = document.getElementById('fileLabel');
   const uploadButton = document.getElementById('uploadButton');
   const spinner = document.getElementById('spinner');
-
-  // Perbarui teks tombol upload sesuai dengan tugas
-  uploadButton.textContent = `Upload ${tugas}`;
 
   // Event untuk update informasi file ketika user memilih file
   fileInput.addEventListener('change', function () {
@@ -25,7 +33,7 @@
       fileLabel.classList.add('active');
     } else {
       fileInfo.textContent = "Ukuran file: 0 MB";
-      fileLabel.textContent = "Klik untuk memilih file Markdown (Maks. 5MB)";
+      fileLabel.textContent = "Klik untuk memilih file PDF (Maks. 5MB)";
       fileLabel.classList.remove('active');
     }
   });
@@ -41,8 +49,8 @@
     const status = document.getElementById('status');
 
     // Validasi tipe file dan ukuran (maks 5MB)
-    if (!file || !file.name.toLowerCase().endsWith('.md')) {
-      showStatus('Hanya file Markdown (.md) yang diperbolehkan.', 'error');
+    if (!file || !file.name.toLowerCase().endsWith('.pdf')) {
+      showStatus('Hanya file PDF (.pdf) yang diperbolehkan.', 'error');
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
@@ -51,7 +59,7 @@
     }
 
     // Validasi format nama file
-    const expectedFilename = `${nim}_${name.replace(/\s+/g, '_')}_${tugas}.md`;
+    const expectedFilename = `${nim}_${name.replace(/\s+/g, '_')}_${tugas}.pdf`;
     if (file.name !== expectedFilename) {
       showStatus(`Nama file tidak sesuai. Harusnya "${expectedFilename}".`, 'error');
       return;
@@ -75,7 +83,7 @@
             email: email,
             file: base64File,
             filename: file.name,
-            mimeType: file.type || 'text/plain',
+            mimeType: file.type || 'application/pdf',
             tugas: tugas
           })
         });
@@ -84,7 +92,7 @@
           showStatus(`File berhasil diunggah! Lihat file: <a href="${result.fileUrl}" target="_blank">View File</a>`, 'success');
           document.getElementById('uploadForm').reset();
           fileInfo.textContent = "Ukuran file: 0 MB";
-          fileLabel.textContent = "Klik untuk memilih file Markdown (Maks. 5MB)";
+          fileLabel.textContent = "Klik untuk memilih file PDF (Maks. 5MB)";
           fileLabel.classList.remove('active');
         } else {
           showStatus(`Error: ${result.error}`, 'error');
