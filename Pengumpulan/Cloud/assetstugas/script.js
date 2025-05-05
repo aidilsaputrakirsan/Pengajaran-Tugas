@@ -3,17 +3,25 @@
     webAppUrl: 'https://script.google.com/macros/s/AKfycbwZrgXImpZxlXyElZLqQz7X5GKAb-eyfyiYj2T-NLDkPeAONDwkshnFBbY6INx97Jz-/exec'
   };
 
-  // Ambil nilai tugas dari atribut data di tag <html>
-  const tugas = document.documentElement.getAttribute('data-tugas') || "Tugas1";
+  // Ambil nilai tugas dari URL parameter, bukan dari data-tugas attribute
+  const urlParams = new URLSearchParams(window.location.search);
+  const taskId = urlParams.get('id') || '1';
+  
+  // Format tugas berdasarkan taskId
+  let tugas;
+  if (taskId === 'UTS') {
+    tugas = 'TugasUTS';
+  } else if (taskId === 'UAS') {
+    tugas = 'TugasUAS';
+  } else {
+    tugas = `Tugas${taskId}`;
+  }
 
   const fileInput = document.getElementById('file');
   const fileInfo = document.getElementById('fileInfo');
   const fileLabel = document.getElementById('fileLabel');
   const uploadButton = document.getElementById('uploadButton');
   const spinner = document.getElementById('spinner');
-
-  // Perbarui teks tombol upload sesuai dengan tugas
-  uploadButton.textContent = `Upload ${tugas}`;
 
   // Event untuk update informasi file ketika user memilih file
   fileInput.addEventListener('change', function () {
